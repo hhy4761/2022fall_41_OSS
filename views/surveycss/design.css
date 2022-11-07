@@ -27,7 +27,7 @@ body {
     margin-top:200px;
 }
 
-#number1 {
+.wholeproblem{
     max-width:800px;
     height:100vh;
 }
@@ -36,6 +36,8 @@ body {
     font-family: "Humanbumsuk";
     font-size:30px;
     margin-bottom:20px;
+    letter-spacing: 2px;
+    line-height:1.2;
 }
 
 .answer {
