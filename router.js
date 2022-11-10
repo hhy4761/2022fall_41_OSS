@@ -3,8 +3,14 @@ const apis = require("./apis");
 const router = express.Router();
 const url = require('url');
 
-router.get('/',(req,res) => {
+router.get('/index',(req,res) => {
     res.render('index');
+})
+router.get('/signup',(req,res) => {
+    res.render('signup');
+})
+router.get('/survey',(req,res) => {
+    res.render('survey');
 })
 
 router.get('/test',(req,res) => {
@@ -14,9 +20,7 @@ router.get('/test',(req,res) => {
 })
 
 router.post('/checkId', (req,res) => {
-    let result = apis.checkIdOverlap(req,res);
-    if(result.success) res.render('') // ID 중복 X
-    else res.render('') // ID 중복
+    return apis.checkIdOverlap(req,res);
 })
 
 router.post('/register', (req,res) => {

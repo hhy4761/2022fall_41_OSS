@@ -11,11 +11,12 @@ module.exports = (sequelize, DataTypes) => {
           },
           password:{
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
           },
           isStudent:{
-            type: DataTypes.ENUM([1,2]), // 1: 입시생 2: 입시생 X
-            allowNull: false,
+            type: DataTypes.ENUM, // 1: 입시생 2: 입시생 X
+            values:["1","2"],
+            allowNull: true,
           },
           nickname:{
             type: DataTypes.STRING,

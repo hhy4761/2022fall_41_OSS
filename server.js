@@ -4,6 +4,7 @@ const ejs = require('ejs');
 
 const app = express();
 const router = require('./router');
+const DBManager = require('./DBManager');
 const hostname = '127.0.0.1';
 const port = 4500;
 
