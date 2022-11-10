@@ -1,11 +1,8 @@
-const http = require('http');
 const express = require('express');
 const session = require('express-session');
 const ejs = require('ejs');
 
 const app = express();
-const server = http.createServer(app);
-const DBManager = require('./DBManager');
 const router = require('./router');
 const hostname = '127.0.0.1';
 const port = 4500;
