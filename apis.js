@@ -31,10 +31,28 @@ const apis = {
             univ : req.body.univ,
             major : req.body.major,
         })
+        return res.json({
+            message: "회원가입 완료."
+        })
     },
     
     async userLogin(req,res) {
-        
+        const result = await DBManager.User.findOne({
+            id : req.body.id,
+            password : req.body.password
+        })
+        if(result){ //회원 정보 일치
+            return res.json({
+                success: true,
+                message: "로그인 성공."
+            })
+        }
+        else{ // 회원 정보 불일치
+            return res.json({
+                success: false,
+                message: "일치하는 회원정보가 없습니다."
+            })
+        }
     },
     
 }
