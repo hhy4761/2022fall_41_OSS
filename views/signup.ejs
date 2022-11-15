@@ -53,9 +53,6 @@
         }
         else{
             document.getElementById("isStudent").value=2;
-        }
-    }
-
     function idcheck(){
         var id1=document.getElementById("id");
         const data1 = JSON.stringify({id:id1.value})
@@ -79,9 +76,6 @@
                     alert(data.message);
                 }
             })
-    }
-    function asdf(){
-        alert(idcheck1);
     }
     const title = document.getElementById("id"); 
     title.addEventListener("focusout", idcheck);
