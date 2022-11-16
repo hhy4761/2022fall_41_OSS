@@ -12,6 +12,12 @@ router.get('/signup',(req,res) => {
 router.get('/survey',(req,res) => {
     res.render('survey');
 })
+router.get('/main',(req,res) => {
+    res.render('main');
+})
+router.get('/board',(req,res) => {
+    res.render('board');
+})
 
 router.get('/test',(req,res) => {
     return res.json({
