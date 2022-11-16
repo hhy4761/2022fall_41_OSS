@@ -5,6 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+
+    <link rel="stylesheet" type="text/css" href="signupcss/design.css">
+    <link rel="stylesheet" type="text/css" href="signupcss/reset.css">
+</head>
+<body>
+        <div id="wrap">  
+            <h1>회 원 가 입</h1>
+            <form action="/register" method="post">
+                <div>
+                    <input type="text" class="contents" name="id" id="id" placeholder="아이디"><br><br>
+                </div>
+                <div>   
+                    <input type="text" class="contents" name="name" placeholder="이름"><br><br>
+                </div>
+                <div> 
+                    <input type="text" class="contents" name="birthday" placeholder="생일"><br><br>
+                </div>
+                <div>    
+                    <input type="text" class="contents" name="nickname" placeholder="닉네임"><br><br>
+                </div>
+                <div></div>  
+                    <input type="text" class="contents" name="password" placeholder="비밀번호"><br><br>
+                </div>
+                <div>
+                    <input type="checkbox" id="isStudent" onclick="checkstudent()">
+                    <label for="isStudent">학생이라면 체크하세요.</label><br><br>
+                </div>
+                <div>
+                    <input type="text" class="contents" name="univ" placeholder="대학교"><br><br>
+                </div>    
+                <div>    
+                    <input type="text" class="contents" name="major" placeholder="전공"><br><br>
+                </div>    
+                <div>
+                    <input type="submit">
+                </div>
+            </form>
+        </div>
+</body>
+<script>
+    let idcheck1=false;
 </head>
 <body>
     <form action="/register" method="post">
@@ -22,15 +63,35 @@
     </form>
 </body>
 <script>
-    function checkstudent(){
-        const checkstudent=document.getElementById("isStudent");
-        check=checkstudent.checked;
-        if(check==true){
-            document.getElementById("isStudent").value=1;
+
+    function idcheck(){
+        var id1=document.getElementById("id");
+        const data1 = JSON.stringify({id:id1.value})
+        const p={
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:data1
         }
-        else{
-            document.getElementById("isStudent").value=2;
-        }
+        fetch('127.0.0.1:4500/checkId',p)
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                if(data.success==true){
+                    alert(data.message);
+                    idcheck1=true;
+                }
+                else{
+                    alert(data.message);
+                }
+            })
     }
+    function asdf(){
+        alert(idcheck1);
+    }
+    const title = document.getElementById("id"); 
+    title.addEventListener("focusout", idcheck);
 </script>
 </html>
