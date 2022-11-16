@@ -28,7 +28,7 @@
                     <input type="text" class="contents" name="password" placeholder="비밀번호"><br><br>
                 </div>
                 <div>
-                    <input type="checkbox" id="isStudent" onclick="checkstudent()">
+                    <input type="checkbox" name="isStudent" id="isStudent" onclick="checkstudent()">
                     <label for="isStudent">학생이라면 체크하세요.</label><br><br>
                 </div>
                 <div>
@@ -66,7 +66,7 @@
             },
             body:data1
         }
-        fetch('127.0.0.1:4500/checkId',p)
+        fetch('/checkId',p)
             .then((response)=>{
                 return response.json()
             })
@@ -80,9 +80,7 @@
                 }
             })
     }
-    function asdf(){
-        alert(idcheck1);
-    }
+
     const title = document.getElementById("id"); 
     title.addEventListener("focusout", idcheck);
 </script>
