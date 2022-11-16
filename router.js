@@ -3,7 +3,7 @@ const apis = require("./apis");
 const router = express.Router();
 const url = require('url');
 
-router.get('/index',(req,res) => {
+router.get('/',(req,res) => {
     res.render('index');
 })
 router.get('/signup',(req,res) => {
