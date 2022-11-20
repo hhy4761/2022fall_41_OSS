@@ -16,29 +16,29 @@
                     <input type="text" class="contents" name="id" id="id" placeholder="아이디"><br><br>
                 </div>
                 <div>   
-                    <input type="text" class="contents" name="name" placeholder="이름"><br><br>
+                    <input type="text" class="contents" name="name" id="name" placeholder="이름"><br><br>
                 </div>
                 <div> 
-                    <input type="text" class="contents" name="birthday" placeholder="생일"><br><br>
+                    <input type="text" class="contents" name="birthday" id="birthday" placeholder="생일"><br><br>
                 </div>
                 <div>    
-                    <input type="text" class="contents" name="nickname" placeholder="닉네임"><br><br>
+                    <input type="text" class="contents" name="nickname" id="nickname" placeholder="닉네임"><br><br>
                 </div>
                 <div></div>  
-                    <input type="text" class="contents" name="password" placeholder="비밀번호"><br><br>
+                    <input type="password" class="contents" name="password" id="password" placeholder="비밀번호"><br><br>
                 </div>
                 <div>
-                    <input type="checkbox" name="isStudent" id="isStudent" onclick="checkstudent()">
+                    <input type="checkbox" name="isStudent" id="isStudent" value=2 onclick="checkstudent()">
                     <label for="isStudent">학생이라면 체크하세요.</label><br><br>
                 </div>
                 <div>
-                    <input type="text" class="contents" name="univ" placeholder="대학교"><br><br>
+                    <input type="text" class="contents" name="univ" id="univ" placeholder="대학교"><br><br>
                 </div>    
                 <div>    
-                    <input type="text" class="contents" name="major" placeholder="전공"><br><br>
+                    <input type="text" class="contents" name="major" id="major" placeholder="전공"><br><br>
                 </div>    
                 <div>
-                    <input type="submit">
+                    <input type="button" onclick="submitlogin()" value="SignUp">
                 </div>
             </form>
         </div>
@@ -77,11 +77,53 @@
                 }
                 else{
                     alert(data.message);
+                    idcheck1=false;
                 }
             })
     }
 
     const title = document.getElementById("id"); 
     title.addEventListener("focusout", idcheck);
+
+    function submitlogin(){
+        var id1=document.getElementById("id");
+        var name1=document.getElementById("name");
+        var birthday1=document.getElementById("birthday");
+        var nickname1=document.getElementById("nickname");
+        var password1=document.getElementById("password");
+        var isStudent1=document.getElementById("isStudent");
+        var univ1=document.getElementById("univ");
+        var major1=document.getElementById("major");
+        const data1 = JSON.stringify({
+            id:id1.value,
+            name:name1.value,
+            birthday:birthday1.value,
+            nickname:nickname1.value,
+            password:password1.value,
+            isStudent:isStudent1.value,
+            univ:univ1.value,
+            major:major1.value
+        })
+        const p={
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:data1
+        }
+        if(idcheck1==true){
+            fetch('/register',p)
+                .then((response)=>{
+                    return response.json()
+                })
+                .then((data)=>{
+                    alert(data.message);
+                    location.href="/main"
+                })
+        }
+        else{
+            alert("ID가 중복됐습니다.")
+        }
+}
 </script>
 </html>
