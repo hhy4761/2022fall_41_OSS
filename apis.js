@@ -22,6 +22,11 @@ const apis = {
     },
 
     async userRegister(req,res) {
+        if(req.session.user){
+            return res.json({
+                message: "이미 로그인 되어있습니다."
+            })
+        }
         await DBManager.User.create({
             id : req.body.id,
             nickname : req.body.nickname,
@@ -42,6 +47,15 @@ const apis = {
             password : req.body.password
         })
         if(result){ //회원 정보 일치
+            req.session.user = {
+                id : result.id,
+                nickname : result.nickname,
+                password : result.password,
+                name : result.name,
+                birthday : result.birthday,
+                univ : result.univ,
+                major : result.major,
+            }
             return res.json({
                 success: true,
                 message: "로그인 성공."

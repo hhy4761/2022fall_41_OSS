@@ -41,6 +41,7 @@
                 return response.json()
             })
             .then((data)=>{
+              alert(data)
                 if(data.success==true){
                   location.href="/main"
                 }
