@@ -27,5 +27,5 @@ module.exports = function (sequelize, DataTypes) {
        comment.belongsTo(models.Board, {foreignKey: "board_id", sourceKey: "id"});
     };
   
-    return board;
+    return comment;
   };
