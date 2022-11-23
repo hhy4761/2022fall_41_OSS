@@ -42,4 +42,17 @@ router.post('/apis/login', (req,res) => {
     return apis.userLogin(req,res);
 })
 
+router.post('/apis/logout', (req,res) => {
+    apis.userLogout(req,res);
+})
+
+router.get('/apis/listBoard', (req,res) => {
+    return apis.listBoard(req,res);
+})
+
+router.post('/apis/postBoard', (req,res) => {
+    return apis.postBoard(req,res);
+})
+
+
 module.exports = router;

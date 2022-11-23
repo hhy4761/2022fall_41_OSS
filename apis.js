@@ -69,6 +69,41 @@ const apis = {
         }
     },
     
+    async userLogout(req,res) {
+        if(req.session.user){
+            await req.session.destroy(function (err) {
+                if (err)
+                    console.log(err)
+                else {
+                  res.redirect('/main');
+                }
+            })
+        }
+    },
+
+    async listBoard(req,res) {
+        const result = await DBManager.Board.findAll();
+        return res.json(result);
+    },
+
+    async postBoard(req,res) {
+        if(!req.session.user){
+            return res.json({
+                success : false,
+                message: "로그인을 먼저 해주세요."
+            })
+        }
+        await DBManager.Board.create({
+            title : req.body.title,
+            type : req.body.type,
+            content : req.body.content,
+            user_id : "asdf"
+        })
+        return res.json({
+            success : true,
+            message: "게시글이 성공적으로 등록되었습니다."
+        })
+    },
 }
 
 module.exports = apis;
