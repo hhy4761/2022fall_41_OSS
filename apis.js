@@ -97,7 +97,7 @@ const apis = {
             title : req.body.title,
             type : req.body.type,
             content : req.body.content,
-            user_id : "asdf"
+            user_id : req.session.user.id
         })
         return res.json({
             success : true,
