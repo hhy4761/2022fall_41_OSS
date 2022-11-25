@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize')
+
 module.exports = function (sequelize, DataTypes) {
     // 계좌
     let board = sequelize.define(
@@ -19,16 +21,20 @@ module.exports = function (sequelize, DataTypes) {
           allowNull: true,
         },
         type:{
-          type: DataTypes.TEXT,
+          type: DataTypes.STRING,
           allowNull: true,
         },
       },
       {
+        timestamps: true,
+        createdAt : "created_at",
+        updatedAt : "updated_at"
+      },
+      {
         tableName: "Board",
-        timestamp: true,
         charset: "utf8",
         underscored: true,
-      }
+      },
     );
     board.associate = models => {
        board.belongsTo(models.User, {foreignKey: "user_id", sourceKey: "id"});
