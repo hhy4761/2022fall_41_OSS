@@ -114,7 +114,7 @@ const apis = {
         if(result){
             return res.json({
                 success : true,
-                data: res.json(result)
+                data: result
             })
         }
         return res.json({
