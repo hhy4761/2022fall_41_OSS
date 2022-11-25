@@ -23,10 +23,12 @@ router.get('/main',(req,res) => {
     res.render('main');
 })
 router.get('/board',(req,res) => {
-    res.render('board');
+    fetch('http://api.localhost:4500/apis/listBoard')
+    .then(response => response.json())
+    .then(response => res.render('board.ejs', {posts: response}))
 })
 
-/* 
+/*
 API 호출 Router
 */
 
