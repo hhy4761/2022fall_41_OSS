@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col text-center">
       <h1>Sign In</h1>
-      <form action="/login" method="post">
+      <form action="/apis/login" method="post">
         <div class="id1">
           <input type="text" name='id' id="id" style="width:300px;height:50px" placeholder="ID" >
         </div>
@@ -36,14 +36,14 @@
             },
             body:data1
         }
-        fetch('/login',p)
+        fetch('/apis/login',p)
             .then((response)=>{
                 return response.json()
             })
             .then((data)=>{
               alert(data)
                 if(data.success==true){
-                  location.href="/main"
+                  location.href="./main.ejs"
                 }
                 else{
                     alert(data.message);
