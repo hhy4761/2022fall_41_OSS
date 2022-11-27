@@ -75,7 +75,10 @@ const apis = {
                 if (err)
                     console.log(err)
                 else {
-                  res.redirect('/main');
+                  return res.json({
+                    success: true,
+                    message: "로그아웃 완료."
+                  })
                 }
             })
         }
@@ -122,6 +125,21 @@ const apis = {
             message : "해당 id를 가진 게시글이 존재하지 않습니다."
         })
     },
+
+    async checkLogin(req,res) {
+        const user = req.session.user;
+        if(user){
+            return res.json({
+                success: true,
+                user : user
+            })
+        }
+        return res.json({
+            success: false,
+            message: "현재 로그인하지 않았습니다."
+        })
+
+    }
 }
 
 module.exports = apis;

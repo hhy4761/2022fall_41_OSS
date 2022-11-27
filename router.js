@@ -44,8 +44,8 @@ router.post('/apis/login', (req,res) => {
     return apis.userLogin(req,res);
 })
 
-router.post('/apis/logout', (req,res) => {
-    apis.userLogout(req,res);
+router.get('/apis/logout', (req,res) => {
+    return apis.userLogout(req,res);
 })
 
 router.get('/apis/listBoard', (req,res) => {
@@ -58,6 +58,10 @@ router.post('/apis/postBoard', (req,res) => {
 
 router.get('/apis/getBoard/:id', (req,res) => {
     return apis.getBoard(req,res);
+})
+
+router.get('/apis/checkLogin', (req,res) => {
+    return apis.checkLogin(req,res);
 })
 
 
