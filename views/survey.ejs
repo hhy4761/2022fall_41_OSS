@@ -7,73 +7,98 @@
   <title>Survey</title>
   <link rel="stylesheet" type="text/css" href="surveycss/reset.css">
   <link rel="stylesheet" type="text/css" href="surveycss/design.css">
-</head>
+  </head>
 <body>
   <section id="contents">
     <div class="survey_problems">
       <div class="wholeproblem">
         <div class="problem">
-          <h4>A 회사에서 건물을 짓는 프로젝트를 맡게 되었습니다. 건물을 지을 때, 예산을 관리하는 회계 담당 부서, 건축 안정성을 검사하는 건축공학 부서 등 다양한 부서가 있습니다. 아래 선택지 중 속하고 싶은 부서를 선택해주세요.</h4>
+          <h4>나는 건물을 지을 때</h4>
         </div>
         <div class="answer">
           <div>
-            <input id="answer1" type="radio" name="1value" value="money">
-            <label for="answer1">예산을 관리하는 회계 담당 부서</label>
+            <input id="answer1" type="radio" name="1value" value="money" style="cursor: pointer">
+            <label for="answer1"style="cursor: pointer">예산을 관리하는 회계 담당 부서에 속하고 싶다.</label>
           </div>
           <div>
-            <input id="answer2" type="radio" name="1value" value="engineer">
-            <label for="answer2">건축 안정성을 검사하는 건축공학 부서</label>
+            <input id="answer2" type="radio" name="1value" value="engineer" style="cursor: pointer">
+            <label for="answer2" style="cursor: pointer">건축 안정성을 검사하는 건축공학 부서에 속하고 싶다.</label>
           </div>
           <div>
-            <input id="answer3" type="radio" name="1value" value="design">
-            <label for="answer3">건물의 외관과 내부를 꾸미는 디자인 부서</label>
+            <input id="answer3" type="radio" name="1value" value="design" style="cursor: pointer">
+            <label for="answer3" style="cursor: pointer">건물의 외관과 내부를 꾸미는 디자인 부서에 속하고 싶다.</label>
           </div>
           <div>
-            <input id="answer4" type="radio" name="1value" value="software">
-            <label for="answer4">건물의 시스템을 제어 및 통제하는 소프트웨어 부서</label>
+            <input id="answer4" type="radio" name="1value" value="software" style="cursor: pointer">
+            <label for="answer4" style="cursor: pointer">건물의 시스템을 제어 및 통제하는 소프트웨어 부서에 속하고 싶다.</label>
           </div>
         </div>
         <div class="button">
-          <button class="next">next</button>
-          <button onclick="test()">submit</button>
+          <button class="next" style="cursor: pointer">다음</button>
         </div>
       </div>
       <div class="wholeproblem">
         <div class="problem">
-          <h4>A 회사에서 건물을 짓는 프로젝트를 맡게 되었습니다. 건물을 지을 때, 예산을 관리하는 회계 담당 부서, 건축 안정성을 검사하는 건축공학 부서 등 다양한 부서가 있습니다. 아래 선택지 중 속하고 싶은 부서를 선택해주세요.</h4>
+          <h4>나는 대회를 나갈 때</h4>
         </div>
         <div class="answer">
           <div>
-            <input id="answer2" type="radio" name="2value" value="money">
-            <label for="answer2">예산을 관리하는 회계 담당 부서</label>
+            <input id="answer21" type="radio" name="2value" value="exercise" style="cursor: pointer">
+            <label for="answer21" style="cursor: pointer">운동을 하는 체육대회가 좋다.</label>
           </div>
           <div>
-            <input id="answer2" type="radio" name="2value" value="engineer">
-            <label for="answer2">건축 안정성을 검사하는 건축공학 부서</label>
+            <input id="answer22" type="radio" name="2value" value="design" style="cursor: pointer">
+            <label for="answer22" style="cursor: pointer">그림을 그리는 예술대회가 좋다.</label>
           </div>
           <div>
-            <input id="answer3" type="radio" name="2value" value="design">
-            <label for="answer3">건물의 외관과 내부를 꾸미는 디자인 부서</label>
+            <input id="answer23" type="radio" name="2value" value="software" style="cursor: pointer">
+            <label for="answer23" style="cursor: pointer">핸드폰 앱을 만드는 대회가 좋다.</label>
           </div>
           <div>
-            <input id="answer4" type="radio" name="2value" value="software">
-            <label for="answer4">건물의 시스템을 제어 및 통제하는 소프트웨어 부서</label>
+            <input id="answer24" type="radio" name="2value" value="money" style="cursor: pointer">
+            <label for="answer24" style="cursor: pointer">모의주식투자 대회가 좋다.</label>
           </div>
         </div>
-        <div class="button">
-          <button class="next">next</button>
-          <button onclick="test()">submit</button>
+        <div class="button button-wrap">
+          <button class="before" style="cursor: pointer">이전</button>
+          <button class="next" style="cursor: pointer">다음</button>
         </div>
       </div>
+      <div class="wholeproblem">
+        <div class="problem">
+          <h4>나는 프로젝트를 맡게 되면</h4>
+        </div>
+        <div class="answer">
+          <div>
+            <input id="answer31" type="radio" name="3value" value="money" style="cursor: pointer">
+            <label for="answer31" style="cursor: pointer">현실적인 예산과 주어진 시간을 먼저 파악한다.</label>
+          </div>
+          <div>
+            <input id="answer32" type="radio" name="3value" value="engineer" style="cursor: pointer">
+            <label for="answer32" style="cursor: pointer">어떤 기술이 필요할지 파악한다.</label>
+          </div>
+          <div>
+            <input id="answer33" type="radio" name="3value" value="design" style="cursor: pointer">
+            <label for="answer33" style="cursor: pointer">실질적인 기능보다는 겉으로 보이는 외관을 중요시한다.</label>
+          </div>
+          <div>
+            <input id="answer34" type="radio" name="3value" value="software" style="cursor: pointer">
+            <label for="answer34" style="cursor: pointer">프로젝트의 방향을 논리적으로 생각한다.</label>
+          </div>
+        </div>
+        <div class="button button-wrap">
+          <button class="before" style="cursor: pointer">이전</button>
+          <button onclick="test()" style="cursor: pointer">제출</button>
     </div>
   </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script type="text/javascript" src="surveycss/scroll.js"> </script>
   <script>
     function test() {
-        var obj_length = document.getElementsByName("1value").length;
-
-        var namelist=["money","engineer","design","soft"]
-        var valuelist=[0,0,0,0]
-        for (var i=0; i<obj_length; i++) {
+      let obj_length1 = document.getElementsByName("1value").length;
+        let namelist=["money","engineer","design","soft","exercise"]
+        let valuelist=[0,0,0,0,0]
+        for (let i=0; i<obj_length1; i++) {
             if (document.getElementsByName("1value")[i].checked == true) {
                 if (document.getElementsByName("1value")[i].value=="money"){
                   valuelist[0]=valuelist[0]+1;
@@ -87,17 +112,67 @@
                 else if (document.getElementsByName("1value")[i].value=="software"){
                   valuelist[3]=valuelist[3]+1;
                 }
+                else if (document.getElementsByName("1value")[i].value=="exercise"){
+                  valuelist[4]=valuelist[4]+1;
+                }
             }
         }
-        var idx=0;
-        var result=valuelist[0];
-        for(var j=0;j<3;j++){
+        let obj_length2 = document.getElementsByName("2value").length;
+        for (let i=0; i<obj_length2; i++) {
+            if (document.getElementsByName("2value")[i].checked == true) {
+                if (document.getElementsByName("2value")[i].value=="money"){
+                  valuelist[0]=valuelist[0]+1;
+                }
+                else if (document.getElementsByName("2value")[i].value=="engineer"){
+                  valuelist[1]=valuelist[1]+1;
+                }
+                else if (document.getElementsByName("2value")[i].value=="design"){
+                  valuelist[2]=valuelist[2]+1;
+                }
+                else if (document.getElementsByName("2value")[i].value=="software"){
+                  valuelist[3]=valuelist[3]+1;
+                }
+                else if (document.getElementsByName("2value")[i].value=="exercise"){
+                  valuelist[4]=valuelist[4]+1;
+                }
+            }
+        }
+        let obj_length3 = document.getElementsByName("3value").length;
+        for (let i=0; i<obj_length3; i++) {
+            if (document.getElementsByName("3value")[i].checked == true) {
+                if (document.getElementsByName("3value")[i].value=="money"){
+                  valuelist[0]=valuelist[0]+1;
+                }
+                else if (document.getElementsByName("3value")[i].value=="engineer"){
+                  valuelist[1]=valuelist[1]+1;
+                }
+                else if (document.getElementsByName("3value")[i].value=="design"){
+                  valuelist[2]=valuelist[2]+1;
+                }
+                else if (document.getElementsByName("3value")[i].value=="software"){
+                  valuelist[3]=valuelist[3]+1;
+                }
+                else if (document.getElementsByName("3value")[i].value=="exercise"){
+                  valuelist[4]=valuelist[4]+1;
+                }
+            }
+        }
+        let idx=0;
+        let check=0;
+        let result=valuelist[0];
+        for(let j=0;j<4;j++){
+          check+=valuelist[j];
           if(valuelist[j]<valuelist[j+1]){
             idx=j+1;
             result=valuelist[j+1];
           }
         }
-        alert(namelist[idx]);
+        check+=valuelist[4];
+        if(check!==3){
+          alert('선택되지 않은 문항이 있습니다.')
+        }
+        else{
+          alert(namelist[idx]);}
     }
   </script>
 </body>
