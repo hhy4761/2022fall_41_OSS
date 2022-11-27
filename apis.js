@@ -104,6 +104,24 @@ const apis = {
             message: "게시글이 성공적으로 등록되었습니다."
         })
     },
+
+    async getBoard(req,res) {
+        const result = await DBManager.Board.findOne({
+            where:{
+                id : req.params.id
+            }
+        })
+        if(result){
+            return res.json({
+                success : true,
+                data: result
+            })
+        }
+        return res.json({
+            success : false,
+            message : "해당 id를 가진 게시글이 존재하지 않습니다."
+        })
+    },
 }
 
 module.exports = apis;
