@@ -14,7 +14,7 @@
                     <a class="btn btn-sm btn-outline-secondary" style="margin-left: 10px;" href="/signup">회원가입</a>
                 </div>
                 <div id="yesLogin" style="display: none;">
-                    <a id="logout" class="btn btn-sm btn-outline-secondary">로그아웃</a>
+                    <a id="logout" class="btn btn-sm btn-outline-secondary" href="#">로그아웃</a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                     document.getElementById('noLogin').style.display = 'block';
                     document.getElementById('yesLogin').style.display = 'none';
                 } else {
-                    alert('로그아웃 실패')
+                    alert('로그아웃 실패.')
                 }
             })
         })

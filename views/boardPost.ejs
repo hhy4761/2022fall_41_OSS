@@ -105,27 +105,28 @@
         <link href="/blog.css" rel="stylesheet">
     </head>
     <body>
-        <%- include('./header') %>
-        <div class="container">
-
-            <div class="page">
-                <div class="page-top my-3 mx-3">
-                    <a href="/board"><button type="button" class="btn btn-dark" style="float: left;">목록</button></a>
-                    <button type="button" class="btn btn-dark" style="float: right;">삭제</button>
-                </div>
-
-                <div class="mx-3">
-                    <div class="post">
-                        <h2 style="font-family: monospace; font-weight: 800;">[<%= post.type %>] <%= post.title %></h2>
-                        <h4 style="font-family: monospace;"><%= post.writer.nickname %></h4>
-                        <p style="font-family: monospace;"><%= post.created_at.substr(0, 10) + " " + post.created_at.substr(11, 5) %></p>
+        <div id="wrap">
+            <%- include('./header') %>
+            <div class="container">
+                <div class="page">
+                    <div class="page-top my-3 mx-3">
+                        <a href="/board"><button type="button" class="btn btn-dark" style="float: left;">목록</button></a>
+                        <button type="button" class="btn btn-dark" style="float: right;">삭제</button>
                     </div>
-                    <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
-                    <div class="post" style="margin-bottom: 50px;">
-                        <div style="font-family: monospace; white-space: pre;"><%= post.content %></div>
-                    </div>
-                </div>
 
+                    <div class="mx-3">
+                        <div class="post">
+                            <h2 style="font-family: monospace; font-weight: 800;">[<%= post.type %>] <%= post.title %></h2>
+                            <h4 style="font-family: monospace;"><%= post.writer.nickname %></h4>
+                            <p style="font-family: monospace;"><%= post.created_at.substr(0, 10) + " " + post.created_at.substr(11, 5) %></p>
+                        </div>
+                        <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
+                        <div class="post" style="margin-bottom: 50px;">
+                            <div style="font-family: monospace; white-space: pre;"><%= post.content %></div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
         <%- include('./footer') %>
