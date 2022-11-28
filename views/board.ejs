@@ -79,6 +79,7 @@
 
           .page {
             text-align: center;
+            align-items: center;
             background-color: #f9f9f9;
             padding: 20px;
             margin: 20px;
@@ -116,47 +117,62 @@
                             <th scope="col" style="width: 15%;">작성일</th>
                         </tr>
                         </thead>
-                        <tbody class="table-group-divider">
-                            <% if (posts.length === 0) { %>
-                                <td colspan="5">글 없음</td>
-                                <% } else { posts.sort(function(a, b) {
-                                    return b.id - a.id
-                                })
-                                    posts.forEach(post => { %>
-                            <tr>
-                                <td><%= post.id %></td>
-                                <td><%= post.type %></td>
-                                <td><a href="/board/<%= post.id %>" class="title">
-                                    <%= post.title %></a></td>
-                                <td><a href="#" class="writer">
-                                    <%= post.writer.nickname %></a></td>
-                                <td><%= post.created_at.substr(0, 10) %></td>
-                            </tr>
-                            <% })
-                            } %>
+                        <tbody id="table-body" class="table-group-divider">
+
                         </tbody>
                     </table>
 
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        </ul>
-                    </nav>
+                    <div style="display: inline-block; text-align: center; margin-top: 20px;">
+                        <ul id="pagination" class="pagination-sm"></ul>
+                    </div>
                 </div>
             </div>
         </div>
         <%- include('./footer') %>
+
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                fetch('http://127.0.0.1:4500/apis/listBoard')
+                .then(response => response.json())
+                .then(response => {
+                    let total = Math.ceil(response.length / 10);
+                    let visible = 10;
+                    if (total < visible) visible = total;
+                    response.sort(function(a, b) { return b.id - a.id });
+
+                    $('#pagination').twbsPagination({
+                        totalPages: total,
+                        visiblePages: visible,
+                        prev: "이전",
+                        next: "다음",
+                        first: '«',
+                        last: '»',
+                        onPageClick: function (event, page) {
+                            $('#table-body').empty();
+                            response.slice(10 * (page - 1), 10 * page).forEach(post => {
+                                let postId = document.createElement('td'); postId.innerHTML = post.id;
+                                let postType = document.createElement('td'); postType.innerHTML = post.type;
+
+                                let postTitleLink = document.createElement('a'); postTitleLink.innerHTML = post.title;
+                                postTitleLink.classList.add('title');
+                                postTitleLink.href = `/board/${post.id}`
+                                let postTitle = document.createElement('td'); postTitle.append(postTitleLink);
+
+                                let postWriter = document.createElement('td'); postWriter.innerHTML = post.writer.nickname;
+                                let postCreatedAt = document.createElement('td'); postCreatedAt.innerHTML = post.created_at.substr(0, 10);
+
+
+                                let tr = document.createElement('tr');
+                                tr.append(postId, postType, postTitle, postWriter, postCreatedAt);
+
+                                $('#table-body').append(tr);
+                            })
+                        }
+                    });
+                })
+            })
+        </script>
     </body>
 </html>
