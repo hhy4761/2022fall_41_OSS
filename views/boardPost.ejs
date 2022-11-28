@@ -63,10 +63,14 @@
             -webkit-overflow-scrolling: touch;
           }
 
-          .page-title:after {
+          .page-top:after {
             content: "";
             display: block;
             clear: both;
+          }
+
+          .post {
+            text-align: start;
           }
 
           .title, .writer {
@@ -75,6 +79,13 @@
 
           .title:hover, .writer:hover {
             color: black; text-decoration: underline;
+          }
+
+          .post-box {
+            padding: 20px;
+            margin: 0px 10px 20px 10px;
+            border: 1px gray solid;
+            border-radius: 10px;
           }
 
           .page {
@@ -98,42 +109,22 @@
         <div class="container">
 
             <div class="page">
-                <div class="page-title my-3 mx-3">
-                    <h2 style="float: left; font-family: monospace; font-weight: 800;">게시판</h2>
-                    <a href="#"><button type="button" class="btn btn-dark" style="float: right;">글쓰기</button></a>
+                <div class="page-top my-3 mx-3">
+                    <a href="/board"><button type="button" class="btn btn-dark" style="float: right;">목록</button></a>
                 </div>
 
+                <div class="mx-3">
+                    <div class="post">
+                        <h2 style="font-family: monospace; font-weight: 800;"><%= post.title %></h2>
+                        <h4 style="font-family: monospace;"><%= post.writer.nickname %></h4>
+                        <p style="font-family: monospace;"><%= post.created_at.substr(0, 10) + " " + post.created_at.substr(11, 5) %></p>
+                    </div>
+                    <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
+                    <div class="post" style="margin-bottom: 50px;">
+                        <div style="font-family: monospace; white-space: pre;"><%= post.content %></div>
+                    </div>
+                </div>
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col" style="width: 10%;"></th>
-                        <th scope="col" style="width: 10%;">분야</th>
-                        <th scope="col" style="width: 50%;">제목</th>
-                        <th scope="col" style="width: 15%;">작성자</th>
-                        <th scope="col" style="width: 15%;">작성일</th>
-                    </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <% if (posts.length === 0) { %>
-                            <td colspan="5">글 없음</td>
-                            <% } else { posts.sort(function(a, b) {
-                                return b.id - a.id
-                            })
-                                posts.forEach(post => { %>
-                        <tr>
-                            <td><%= post.id %></td>
-                            <td><%= post.type %></td>
-                            <td><a href="board/<%= post.id %>" class="title">
-                                <%= post.title %></a></td>
-                            <td><a href="#" class="writer">
-                                <%= post.writer.nickname %></a></td>
-                            <td><%= post.created_at.substr(0, 10) %></td>
-                        </tr>
-                        <% })
-                        } %>
-                    </tbody>
-                </table>
             </div>
         </div>
         <%- include('./footer') %>

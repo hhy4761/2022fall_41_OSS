@@ -48,6 +48,7 @@ const apis = {
         await DBManager.User.create({
             id : req.body.id,
             nickname : req.body.nickname,
+            isStudent : req.body.isStudent,
             password : req.body.password,
             name : req.body.name,
             birthday : req.body.birthday,
@@ -61,14 +62,17 @@ const apis = {
     
     async userLogin(req,res) {
         const result = await DBManager.User.findOne({
-            id : req.body.id,
-            password : req.body.password
+            where:{
+                id : req.body.id,
+                password : req.body.password
+            }
         })
         if(result){ //회원 정보 일치
             req.session.user = {
                 id : result.id,
                 nickname : result.nickname,
                 password : result.password,
+                isStudent : result.isStudent,
                 name : result.name,
                 birthday : result.birthday,
                 univ : result.univ,
@@ -122,12 +126,26 @@ const apis = {
                 message: "로그인을 먼저 해주세요."
             })
         }
-        await DBManager.Board.create({
+        const board = await DBManager.Board.create({
             title : req.body.title,
             type : req.body.type,
             content : req.body.content,
             user_id : req.session.user.id
         })
+        // 한국 시간에 맞춰서 UTC +09:00 시간 반영
+        let date = new Date(board.created_at)
+        date.setTime(date.getTime() + 9*60*60*1000)
+        await DBManager.Board.update({
+            created_at : date,
+            updated_at : date
+        },
+        {
+            where:{
+                id : board.id
+            }
+        }
+        )
+
         return res.json({
             success : true,
             message: "게시글이 성공적으로 등록되었습니다."

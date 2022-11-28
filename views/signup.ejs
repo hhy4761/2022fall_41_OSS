@@ -9,22 +9,22 @@
     <link rel="stylesheet" type="text/css" href="signupcss/reset.css">
 </head>
 <body>
-        <div id="wrap">  
+        <div id="wrap">
             <h1>회 원 가 입</h1>
             <form action="/register" method="post">
                 <div>
                     <input type="text" class="contents" name="id" id="id" placeholder="아이디"><br><br>
                 </div>
-                <div>   
+                <div>
                     <input type="text" class="contents" name="name" id="name" placeholder="이름"><br><br>
                 </div>
-                <div> 
+                <div>
                     <input type="text" class="contents" name="birthday" id="birthday" placeholder="생일"><br><br>
                 </div>
-                <div>    
+                <div>
                     <input type="text" class="contents" name="nickname" id="nickname" placeholder="닉네임"><br><br>
                 </div>
-                <div></div>  
+                <div></div>
                     <input type="password" class="contents" name="password" id="password" placeholder="비밀번호"><br><br>
                 </div>
                 <div>
@@ -33,10 +33,10 @@
                 </div>
                 <div>
                     <input type="text" class="contents" name="univ" id="univ" placeholder="대학교"><br><br>
-                </div>    
-                <div>    
+                </div>
+                <div>
                     <input type="text" class="contents" name="major" id="major" placeholder="전공"><br><br>
-                </div>    
+                </div>
                 <div>
                     <input type="button" onclick="submitlogin()" value="SignUp">
                 </div>
@@ -109,7 +109,7 @@
             })
     }
 
-    const title = document.getElementById("id"); 
+    const title = document.getElementById("id");
     title.addEventListener("focusout", idcheck);
     const title1 = document.getElementById("nickname"); 
     title1.addEventListener("focusout", nickcheck);
@@ -171,7 +171,7 @@
                 })
                 .then((data)=>{
                     alert(data.message);
-                    location.href="/main"
+                    location.href="/login"
                 })
         }
 }
