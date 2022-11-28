@@ -18,6 +18,28 @@ router.get('/main',(req,res) => {
 router.get('/board',(req,res) => {
     res.render('board');
 })
+router.get('/surveyresult/:result',(req,res)=>{
+    switch (req.params.result){
+        case 'human':
+            res.render('surveyresult/human')
+            break
+        case 'engineer':
+            res.render('surveyresult/engineer')
+            break
+        case 'design':
+            res.render('surveyresult/design')
+            break
+        case 'manage':
+            res.render('surveyresult/manage')
+            break
+        case 'exercise':
+            res.render('surveyresult/exercise')
+            break
+        default:
+            res.render('survey');
+            break
+    }
+})
 
 router.get('/test',(req,res) => {
     return res.json({
