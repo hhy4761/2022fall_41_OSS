@@ -126,12 +126,26 @@ const apis = {
                 message: "로그인을 먼저 해주세요."
             })
         }
-        await DBManager.Board.create({
+        const board = await DBManager.Board.create({
             title : req.body.title,
             type : req.body.type,
             content : req.body.content,
             user_id : req.session.user.id
         })
+        // 한국 시간에 맞춰서 UTC +09:00 시간 반영
+        let date = new Date(board.created_at)
+        date.setTime(date.getTime() + 9*60*60*1000)
+        await DBManager.Board.update({
+            created_at : date,
+            updated_at : date
+        },
+        {
+            where:{
+                id : board.id
+            }
+        }
+        )
+
         return res.json({
             success : true,
             message: "게시글이 성공적으로 등록되었습니다."
