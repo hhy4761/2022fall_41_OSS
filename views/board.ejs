@@ -100,7 +100,7 @@
             <div class="page">
                 <div class="page-title my-3 mx-3">
                     <h2 style="float: left; font-family: monospace; font-weight: 800;">게시판</h2>
-                    <a href="#"><button type="button" class="btn btn-dark" style="float: right;">글쓰기</button></a>
+                    <a href="/post"><button type="button" class="btn btn-dark" style="float: right;">글쓰기</button></a>
                 </div>
 
 
@@ -124,7 +124,7 @@
                         <tr>
                             <td><%= post.id %></td>
                             <td><%= post.type %></td>
-                            <td><a href="board/<%= post.id %>" class="title">
+                            <td><a href="/board/<%= post.id %>" class="title">
                                 <%= post.title %></a></td>
                             <td><a href="#" class="writer">
                                 <%= post.writer.nickname %></a></td>
