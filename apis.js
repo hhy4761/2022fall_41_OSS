@@ -67,12 +67,12 @@ const apis = {
                 password : req.body.password
             }
         })
-        console.log(result)
         if(result){ //회원 정보 일치
             req.session.user = {
                 id : result.id,
                 nickname : result.nickname,
                 password : result.password,
+                isStudent : result.isStudent,
                 name : result.name,
                 birthday : result.birthday,
                 univ : result.univ,
