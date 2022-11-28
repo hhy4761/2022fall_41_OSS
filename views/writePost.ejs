@@ -109,31 +109,33 @@
         <link href="/blog.css" rel="stylesheet">
     </head>
     <body>
-        <%- include('./header') %>
-        <div class="container">
+        <div id="wrap">
+            <%- include('./header') %>
+            <div class="container">
 
-            <div class="page">
-                <div class="page-top my-3 mx-3">
-                    <button type="button" id="post-btn" class="btn btn-dark" style="float: right; margin-left: 10px;">작성</button>
-                    <a href="/board"><button type="button" class="btn btn-dark" style="float: right;">취소</button></a>
-                </div>
-
-                <div class="mx-3">
-                    <div class="post">
-                        <select id="type-form" class="form-select" style="margin-bottom: 10px;">
-                            <option value="" disabled selected>글 종류를 선택해 주세요</option>
-                            <option value="자유">자유</option>
-                            <option value="학업">학업</option>
-                            <option value="진로">진로</option>
-                        </select>
-                        <input type="text" class="form-control" id="title-form" placeholder="제목을 입력해 주세요">
+                <div class="page">
+                    <div class="page-top my-3 mx-3">
+                        <button type="button" id="post-btn" class="btn btn-dark" style="float: right; margin-left: 10px;">작성</button>
+                        <a href="/board"><button type="button" class="btn btn-dark" style="float: right;">취소</button></a>
                     </div>
-                    <div style="border-bottom: 1px solid #c9c9c9; margin: 20px 0 20px 0;"></div>
-                    <div class="post" style="margin-bottom: 30px;">
-                        <textarea class="form-control" id="content-form" rows="15"></textarea>
-                    </div>
-                </div>
 
+                    <div class="mx-3">
+                        <div class="post">
+                            <select id="type-form" class="form-select" style="margin-bottom: 10px;">
+                                <option value="" disabled selected>글 종류를 선택해 주세요</option>
+                                <option value="자유">자유</option>
+                                <option value="학업">학업</option>
+                                <option value="진로">진로</option>
+                            </select>
+                            <input type="text" class="form-control" id="title-form" placeholder="제목을 입력해 주세요">
+                        </div>
+                        <div style="border-bottom: 1px solid #c9c9c9; margin: 20px 0 20px 0;"></div>
+                        <div class="post" style="margin-bottom: 30px;">
+                            <textarea class="form-control" id="content-form" rows="15"></textarea>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
         <%- include('./footer') %>
