@@ -56,6 +56,28 @@ router.get('/board/:id', (req, res) => {
     .then(response => {res.render('boardPost', {post: response.data})
 console.log(response)})
 })
+router.get('/surveyresult/:result',(req,res)=>{
+    switch (req.params.result){
+        case 'human':
+            res.render('surveyresult/human')
+            break
+        case 'engineer':
+            res.render('surveyresult/engineer')
+            break
+        case 'design':
+            res.render('surveyresult/design')
+            break
+        case 'manage':
+            res.render('surveyresult/manage')
+            break
+        case 'exercise':
+            res.render('surveyresult/exercise')
+            break
+        default:
+            res.render('survey');
+            break
+    }
+})
 
 /*
 API 호출 Router
