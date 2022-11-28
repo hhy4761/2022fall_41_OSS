@@ -14,7 +14,7 @@
                     <a class="btn btn-sm btn-outline-secondary" style="margin-left: 10px;" href="/signup">회원가입</a>
                 </div>
                 <div id="yesLogin" style="display: none;">
-                    <a class="btn btn-sm btn-outline-secondary" href="#">로그아웃</a>
+                    <a id="logout" class="btn btn-sm btn-outline-secondary">로그아웃</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,6 @@
             .then(response => response.json())
             .then(response => {
                 if (response.success) {
-                    console.log(response)
                     let divbox = document.getElementById('yesLogin');
 
                     let user = document.createElement("p");
@@ -48,6 +47,20 @@
                     divbox.style.display = 'block';
                 } else {
                     document.getElementById('noLogin').style.display = 'block';
+                }
+            })
+        })
+
+        document.getElementById('logout').addEventListener("click", function() {
+            fetch('http://127.0.0.1:4500/apis/logout')
+            .then(response => response.json())
+            .then(response => {
+                if (response.success) {
+                    alert(response.message)
+                    document.getElementById('noLogin').style.display = 'block';
+                    document.getElementById('yesLogin').style.display = 'none';
+                } else {
+                    alert('로그아웃 실패')
                 }
             })
         })
