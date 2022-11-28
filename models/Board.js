@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     );
     board.associate = models => {
-       board.belongsTo(models.User, {foreignKey: "user_id", sourceKey: "id"});
+       board.belongsTo(models.User, {foreignKey: "user_id", sourceKey: "id", as: "writer"});
        board.hasMany(models.Comment, {foreignKey: "board_id", sourceKey: 'id'});
     };
   

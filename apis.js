@@ -85,7 +85,15 @@ const apis = {
     },
 
     async listBoard(req,res) {
-        const result = await DBManager.Board.findAll();
+        const result = await DBManager.Board.findAll({
+            include:[
+                {
+                    model: DBManager.User,
+                    as: 'writer',
+                    attributes: ['nickname'],
+                }
+            ]
+        });
         return res.json(result);
     },
 
@@ -112,7 +120,14 @@ const apis = {
         const result = await DBManager.Board.findOne({
             where:{
                 id : req.params.id
-            }
+            },
+            include:[
+                {
+                    model: DBManager.User,
+                    as: 'writer',
+                    attributes: ['nickname']
+                }
+            ]
         })
         if(result){
             return res.json({
@@ -138,8 +153,7 @@ const apis = {
             success: false,
             message: "현재 로그인하지 않았습니다."
         })
-
-    }
+    },
 }
 
 module.exports = apis;

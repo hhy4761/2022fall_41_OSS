@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
       /**
       * Users안에 있는 "id값"을 "user_id라는 컬럼 이름"으로 Board모델에 새로운 컬럼으로 추가한다.
       */
-      user.hasMany(models.Board, {foreignKey: "user_id", sourceKey: 'id'});
+      user.hasMany(models.Board, {foreignKey: "user_id", sourceKey: 'id', as: "writer"});
       user.hasMany(models.Comment, {foreignKey: "user_id", sourceKey: 'id'});
     };
   
