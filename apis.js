@@ -59,7 +59,7 @@ const apis = {
             message: "회원가입 완료."
         })
     },
-    
+
     async userLogin(req,res) {
         const result = await DBManager.User.findOne({
             where:{
@@ -90,7 +90,7 @@ const apis = {
             })
         }
     },
-    
+
     async userLogout(req,res) {
         if(req.session.user){
             await req.session.destroy(function (err) {
@@ -148,6 +148,7 @@ const apis = {
 
         return res.json({
             success : true,
+            id: board.id,
             message: "게시글이 성공적으로 등록되었습니다."
         })
     },
