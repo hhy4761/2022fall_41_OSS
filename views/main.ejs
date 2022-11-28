@@ -9,7 +9,7 @@
     <title>OSSP_Team_23</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/blog/">
-    <link href="./bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -68,36 +68,12 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="blog.css" rel="stylesheet">
+    <link href="/blog.css" rel="stylesheet">
 
   </head>
   <body>
 
-<div class="container">
-  <header class="blog-header lh-1 py-3">
-    <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 pt-1">
-      </div>
-      <div class="col-4 text-center">
-        <a class="blog-header-logo text-dark" href="/main">OSSP</a>
-      </div>
-      <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="btn btn-sm btn-outline-secondary" href="#">로그인</a>
-        <a class="btn btn-sm btn-outline-secondary" style="margin-left: 10px;" href="/signup">회원가입</a>
-      </div>
-    </div>
-  </header>
-
-  <div class="nav-scroller py-1 mb-2">
-    <nav class="nav d-flex justify-content-between">
-      <a class="p-2 link-secondary" href="/board">게시판</a>
-      <a class="p-2 link-secondary" href="/survey">적성검사</a>
-      <a class="p-2 link-secondary" href="https://www.jinhakapply.com/">진학사원서접수</a>
-      <a class="p-2 link-secondary" href="https://www.uwayapply.com/">유웨이어플라이</a>
-      <a class="p-2 link-secondary" href="https://www.suneung.re.kr/main.do?s=suneung">대학수학능력시험</a>
-    </nav>
-  </div>
-</div>
+    <%- include('./header') %>
 
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
@@ -189,11 +165,7 @@
 
 </main>
 
-<footer class="blog-footer">
-  <p>오픈소스소프트웨어실습 Team 23</p>
-  <p>김호연 우지은 이재빈</p>
-</footer>
-
+    <%- include('./footer') %>
 
   </body>
 </html>

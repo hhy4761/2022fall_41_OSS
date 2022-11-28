@@ -41,12 +41,12 @@
                 return response.json()
             })
             .then((data)=>{
-              alert(data)
+              alert(data.message)
                 if(data.success==true){
-                  location.href="./main.ejs"
+                  location.href="/main"
                 }
                 else{
-                    alert(data.message);
+
                 }
             })
     }
