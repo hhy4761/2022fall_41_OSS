@@ -48,6 +48,7 @@ const apis = {
         await DBManager.User.create({
             id : req.body.id,
             nickname : req.body.nickname,
+            isStudent : req.body.isStudent,
             password : req.body.password,
             name : req.body.name,
             birthday : req.body.birthday,
