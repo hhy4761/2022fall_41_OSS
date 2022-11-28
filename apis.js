@@ -48,6 +48,7 @@ const apis = {
         await DBManager.User.create({
             id : req.body.id,
             nickname : req.body.nickname,
+            isStudent : req.body.isStudent,
             password : req.body.password,
             name : req.body.name,
             birthday : req.body.birthday,
@@ -61,14 +62,17 @@ const apis = {
     
     async userLogin(req,res) {
         const result = await DBManager.User.findOne({
-            id : req.body.id,
-            password : req.body.password
+            where:{
+                id : req.body.id,
+                password : req.body.password
+            }
         })
         if(result){ //회원 정보 일치
             req.session.user = {
                 id : result.id,
                 nickname : result.nickname,
                 password : result.password,
+                isStudent : result.isStudent,
                 name : result.name,
                 birthday : result.birthday,
                 univ : result.univ,

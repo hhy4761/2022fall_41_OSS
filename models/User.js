@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           isStudent:{
             type: DataTypes.ENUM, // 1: 입시생 2: 입시생 X
-            values:["1","2"],
+            values:[1,2],
             allowNull: true,
           },
           nickname:{
