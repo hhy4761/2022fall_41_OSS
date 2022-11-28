@@ -62,9 +62,12 @@ const apis = {
     
     async userLogin(req,res) {
         const result = await DBManager.User.findOne({
-            id : req.body.id,
-            password : req.body.password
+            where:{
+                id : req.body.id,
+                password : req.body.password
+            }
         })
+        console.log(result)
         if(result){ //회원 정보 일치
             req.session.user = {
                 id : result.id,
