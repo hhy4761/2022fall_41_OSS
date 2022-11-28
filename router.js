@@ -36,6 +36,10 @@ router.post('/apis/checkId', (req,res) => {
     return apis.checkIdOverlap(req,res);
 })
 
+router.post('/apis/checkNickname', (req,res) =>{
+    return apis.checkNickname(req,res);
+})
+
 router.post('/apis/register', (req,res) => {
     return apis.userRegister(req,res);
 })
