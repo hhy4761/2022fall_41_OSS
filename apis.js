@@ -21,6 +21,24 @@ const apis = {
         }
     },
 
+    async checkNickname(req,res) {
+        const result = await DBManager.User.findOne({
+            where: {
+                nickname : req.body.nickname
+            }
+        })
+        if(result){
+            return res.json({
+                success : false,
+                message: "이미 존재하는 닉네임입니다."
+            })
+        }
+        return res.json({
+            success: true,
+            meessage: "사용해도 좋은 닉네임입니다."
+        })
+    },
+
     async userRegister(req,res) {
         if(req.session.user){
             return res.json({
@@ -154,6 +172,7 @@ const apis = {
             message: "현재 로그인하지 않았습니다."
         })
     },
+
 }
 
 module.exports = apis;
