@@ -43,7 +43,9 @@ router.get('/surveyresult/:result',(req,res) => {
     }
 })
 router.get('/main',(req,res) => {
-    res.render('main');
+    fetch('http://127.0.0.1:4500/apis/listBoard')
+    .then(response => response.json())
+    .then(response => res.render('main', {posts: response}))
 })
 router.get('/board',(req,res) => {
     res.render('board');
