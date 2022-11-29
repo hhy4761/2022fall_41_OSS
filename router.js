@@ -46,17 +46,26 @@ router.get('/main',(req,res) => {
     res.render('main');
 })
 router.get('/board',(req,res) => {
-    fetch('http://127.0.0.1:4500/apis/listBoard')
-    .then(response => response.json())
-    .then(response => res.render('board', {posts: response}))
+    res.render('board');
 })
 router.get('/board/:id', (req,res) => {
     fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
     .then(response => response.json())
     .then(response => res.render('boardPost', {post: response.data}))
+    .catch(error => console.log("error:", error))
 })
 router.get('/post', (req,res) => {
-    res.render('writePost')
+    res.render('writePost', {isWrite: true, id: -1})
+})
+router.get('/post/:id', (req,res) => {
+    fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
+    .then(response => response.json())
+    .then(response => res.render('writePost', {
+        isWrite: false,
+        id: req.params.id,
+        post: response.data
+    }))
+    .catch((error) => console.log("error:", error))
 })
 router.get('/surveyresult/:result',(req,res)=>{
     switch (req.params.result){
@@ -113,7 +122,7 @@ router.post('/apis/postBoard', (req,res) => {
     return apis.postBoard(req,res);
 })
 
-router.get('/apis/getBoard/', (req,res) => {
+router.get('/apis/getBoard/:id', (req,res) => {
     return apis.getBoard(req,res);
 })
 

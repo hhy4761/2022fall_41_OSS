@@ -111,7 +111,8 @@
                 <div class="page">
                     <div class="page-top my-3 mx-3">
                         <a href="/board"><button type="button" class="btn btn-dark" style="float: left;">목록</button></a>
-                        <button type="button" class="btn btn-dark" style="float: right;">삭제</button>
+                        <button value="<%= post.id %>" id="delete-btn" type="button" class="btn btn-dark" style="float: right; margin-left: 10px;">삭제</button>
+                        <button value="<%= post.id %>" id="put-btn" type="button" class="btn btn-dark" style="float: right;">수정</button>
                     </div>
 
                     <div class="mx-3">
@@ -130,5 +131,26 @@
             </div>
         </div>
         <%- include('./footer') %>
+
+        <script>
+            let deleteBtn = document.getElementById('delete-btn')
+            deleteBtn.addEventListener('click', () => {
+                if (confirm("정말 삭제하시겠습니까?")) {
+                    fetch(`http://127.0.0.1:4500/apis/deleteBoard/${deleteBtn.value}`, { method: "DELETE" })
+                    .then(response => response.json())
+                    .then(response => {
+                        alert(response.message);
+                        if (response.success) {
+                            location.href='/board';
+                        }
+                    })
+                }
+            })
+
+            let putBtn = document.getElementById('put-btn')
+            putBtn.addEventListener('click', () => {
+                location.href=`/post/${putBtn.value}`;
+            })
+        </script>
     </body>
 </html>
