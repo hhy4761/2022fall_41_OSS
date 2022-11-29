@@ -238,6 +238,122 @@ const apis = {
         })
     },
 
+    async postComment(req,res) {
+        if(!req.session.user){
+            return res.json({
+                success : false,
+                message: "로그인을 먼저 해주세요."
+            })
+        }
+        const comment = await DBManager.Comment.create({
+            comment_content : req.body.comment_content,
+            user_id : req.session.user.id,
+            board_id : req.params.board_id
+        })
+        // 한국 시간에 맞춰서 UTC +09:00 시간 반영
+        let date = new Date(comment.created_at)
+        date.setTime(date.getTime() + 9*60*60*1000)
+        await DBManager.Comment.update(
+            {
+                created_at : date,
+                updated_at : date
+            },
+            {
+                where:{
+                    id : comment.id
+                }
+            })
+
+        return res.json({
+            success : true,
+            message: "댓글이 성공적으로 등록되었습니다."
+        })
+    },
+
+    async getComment(req,res) {
+        const comment = await DBManager.Comment.findAll({
+            where:{
+                board_id : req.params.board_id
+            },
+            include:[
+                {
+                    model: DBManager.User,
+                    as: 'comment_writer',
+                    attributes: ['nickname','isStudent']
+                }
+            ]
+        })
+        if(comment){
+            return res.json({
+                success : true,
+                data: comment
+            })
+        }
+        return res.json({
+            success : false,
+            message : "해당 id를 가진 댓글이 존재하지 않습니다."
+        })
+    },
+
+    async putComment(req,res) {
+        const comment = await DBManager.Comment.findOne({
+            where:{
+                id: req.params.comment_id
+            }
+        })
+        if(comment){
+            await DBManager.Comment.update({
+                    comment_content: req.body.comment_content,
+                },
+                {
+                where:{
+                    id : comment.id
+                },
+            })
+            let date = new Date(comment.updated_at)
+            date.setTime(date.getTime() + 9*60*60*1000)
+            await DBManager.Comment.update({
+                updated_at : date
+            },
+            {
+                where:{
+                    id : comment.id
+                }
+            })
+            return res.json({
+                success: true,
+                message: "수정 완료."
+            })
+        }
+        return res.json({
+            success: false,
+            message: "id에 해당하는 게시글이 존재하지 않습니다."
+        })
+    },
+
+    async deleteComment(req,res) {
+        const comment = await DBManager.Comment.findOne({
+            where:{
+                id: req.params.comment_id
+            }
+        })
+        if(comment){
+            await DBManager.Comment.destroy({
+                where:{
+                    id : comment.id
+                },
+            })
+            return res.json({
+                success: true,
+                message: "삭제되었습니다."
+            });
+        }
+        return res.json({
+            success: false,
+            message: "id에 해당하는 댓글이 존재하지 않습니다."
+        })
+    },
+
     async checkLogin(req,res) {
         const user = req.session.user;
         if(user){
