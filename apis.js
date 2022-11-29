@@ -35,7 +35,7 @@ const apis = {
         }
         return res.json({
             success: true,
-            meessage: "사용해도 좋은 닉네임입니다."
+            message: "사용해도 좋은 닉네임입니다."
         })
     },
 
