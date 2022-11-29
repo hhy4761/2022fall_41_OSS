@@ -87,6 +87,74 @@
             border: #e5e5e5 .05rem solid;
             margin-bottom: 20px;
           }
+
+            .pagination > li > a {
+                background-color: white;
+                color: black;
+            }
+
+            .pagination > li > a:focus,
+            .pagination > li > a:hover,
+            .pagination > li > span:focus,
+            .pagination > li > span:hover {
+                color: white;
+                background-color: gray;
+                border-color: #ddd;
+            }
+
+            .pagination > .active > a {
+                color: white;
+                background-color: black !Important;
+                border: solid 1px black !Important;
+            }
+
+            .pagination > .active > a:hover {
+                background-color: black !Important;
+                border: solid 1px black;
+            }
+
+            .my-tooltip {
+            position: relative;
+            }
+
+            .my-tooltip:hover {
+                cursor: help;
+            }
+
+            .my-tooltip .my-tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+
+            opacity: 0;
+            transition: opacity 0.3s;
+            }
+
+            .my-tooltip .my-tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+            }
+
+            .my-tooltip:hover .my-tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            }
         </style>
 
 
@@ -103,7 +171,7 @@
                 <div class="page">
                     <div class="page-title my-3 mx-3">
                         <h2 style="float: left; font-family: monospace; font-weight: 800;">게시판</h2>
-                        <a href="/post"><button type="button" class="btn btn-dark" style="float: right;">글쓰기</button></a>
+                        <a href="/post"><button type="button" class="btn btn-dark" style="float: right;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">글쓰기</button></a>
                     </div>
 
 
@@ -165,6 +233,14 @@
                                 else {
                                     postWriter.innerHTML = post.writer.nickname.slice(0,6) + "···";
                                 }
+                                if (post.writer.isStudent === '1') {
+                                    postWriter.classList.add('my-tooltip');
+                                    let postWriterMajor = document.createElement('span');
+                                    postWriterMajor.innerHTML = post.writer.major;
+                                    postWriterMajor.classList.add('my-tooltiptext');
+                                    postWriter.appendChild(postWriterMajor);
+                                }
+
                                 let postCreatedAt = document.createElement('td'); postCreatedAt.innerHTML = post.created_at.substr(0, 10);
 
 
