@@ -113,6 +113,14 @@ router.post('/apis/postBoard', (req,res) => {
     return apis.postBoard(req,res);
 })
 
+router.put('/apis/putBoard/:id', (req,res) => {
+    return apis.putBoard(req,res);
+})
+
+router.delete('/apis/deleteBoard/:id', (req,res) => {
+    return apis.deleteBoard(req,res);
+})
+
 router.get('/apis/getBoard/:id', (req,res) => {
     return apis.getBoard(req,res);
 })

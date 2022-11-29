@@ -112,7 +112,7 @@ const apis = {
                 {
                     model: DBManager.User,
                     as: 'writer',
-                    attributes: ['nickname'],
+                    attributes: ['nickname','isStudent'],
                 }
             ]
         });
@@ -143,8 +143,7 @@ const apis = {
             where:{
                 id : board.id
             }
-        }
-        )
+        })
 
         return res.json({
             success : true,
@@ -162,7 +161,7 @@ const apis = {
                 {
                     model: DBManager.User,
                     as: 'writer',
-                    attributes: ['nickname']
+                    attributes: ['nickname','isStudent']
                 }
             ]
         })
@@ -175,6 +174,67 @@ const apis = {
         return res.json({
             success : false,
             message : "해당 id를 가진 게시글이 존재하지 않습니다."
+        })
+    },
+
+    async putBoard(req,res) {
+        const board = await DBManager.Board.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        if(board){
+            await DBManager.Board.update({
+                    title: req.body.title,
+                    content: req.body.content,
+                    type: req.body.type
+                },
+                {
+                where:{
+                    id : board.id
+                },
+            })
+            let date = new Date(board.updated_at)
+            date.setTime(date.getTime() + 9*60*60*1000)
+            await DBManager.Board.update({
+                updated_at : date
+            },
+            {
+                where:{
+                    id : board.id
+                }
+            })
+            return res.json({
+                success: true,
+                message: "수정 완료."
+            })
+        }
+        return res.json({
+            success: false,
+            message: "id에 해당하는 게시글이 존재하지 않습니다."
+        })
+    },
+
+    async deleteBoard(req,res) {
+        const board = await DBManager.Board.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        if(board){
+            await DBManager.Board.destroy({
+                where:{
+                    id : board.id
+                },
+            })
+            return res.json({
+                success: true,
+                message: "삭제되었습니다."
+            });
+        }
+        return res.json({
+            success: false,
+            message: "id에 해당하는 게시글이 존재하지 않습니다."
         })
     },
 
