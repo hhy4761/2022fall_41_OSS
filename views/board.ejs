@@ -163,7 +163,7 @@
                                 let postWriter = document.createElement('td');
                                 if (post.writer.nickname.length <= 7) postWriter.innerHTML = post.writer.nickname;
                                 else {
-                                    postWriter.innerHTML = post.writer.nickname.slice(0,6) + " ...";
+                                    postWriter.innerHTML = post.writer.nickname.slice(0,6) + "···";
                                 }
                                 let postCreatedAt = document.createElement('td'); postCreatedAt.innerHTML = post.created_at.substr(0, 10);
 

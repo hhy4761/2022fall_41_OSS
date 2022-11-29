@@ -51,20 +51,30 @@ router.get('/board',(req,res) => {
 router.get('/board/:id', (req,res) => {
     fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
     .then(response => response.json())
-    .then(response => res.render('boardPost', {post: response.data}))
+    .then(response => res.render('boardPost', {post: response.data, user: req.session.user}))
     .catch(error => console.log("error:", error))
 })
 router.get('/post', (req,res) => {
-    res.render('writePost', {isWrite: true, id: -1})
+    res.render('writePost', {isWrite: true})
 })
 router.get('/post/:id', (req,res) => {
     fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
     .then(response => response.json())
-    .then(response => res.render('writePost', {
-        isWrite: false,
-        id: req.params.id,
-        post: response.data
-    }))
+    .then(response => {
+        if (req.session.user) {
+            if (response.data.user_id === req.session.user.id) {
+                res.render('writePost', {
+                    isWrite: false,
+                    id: req.params.id,
+                    post: response.data
+                })
+            } else {
+                res.render('wrong')
+            }
+        } else {
+            res.render('wrong')
+        }
+    })
     .catch((error) => console.log("error:", error))
 })
 router.get('/surveyresult/:result',(req,res)=>{
