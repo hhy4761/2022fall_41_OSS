@@ -196,11 +196,9 @@
                         fetch('/apis/postBoard', p)
                         .then(response => response.json())
                         .then(response => {
+                            alert(response.message)
                             if (response.success) {
-                                alert(response.message)
                                 location.href = `/board/${response.id}`;
-                            } else {
-                                alert('로그인 시에만 게시글 작성이 가능합니다');
                             }
                         })
                     } else {
@@ -235,11 +233,9 @@
                         fetch(`/apis/putBoard/${putButton.value}`, p)
                         .then(response => response.json())
                         .then(response => {
+                            alert(response.message)
                             if (response.success) {
-                                alert(response.message)
                                 location.href = `/board/${putButton.value}`;
-                            } else {
-                                alert('로그인 시에만 게시글 작성이 가능합니다');
                             }
                         })
                     } else {

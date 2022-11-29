@@ -53,7 +53,16 @@ router.get('/board',(req,res) => {
 router.get('/board/:id', (req,res) => {
     fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
     .then(response => response.json())
-    .then(response => res.render('boardPost', {post: response.data, user: req.session.user}))
+    .then(response => {
+        fetch(`http://127.0.0.1:4500/apis/getComment/${req.params.id}`)
+        .then(response2 => response2.json())
+        .then(response2 => res.render('boardPost', {
+            post: response.data,
+            comments: response2.data,
+            user: req.session.user
+        }))
+        .catch(error => console.log("error:", error))
+    })
     .catch(error => console.log("error:", error))
 })
 router.get('/post', (req,res) => {

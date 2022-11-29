@@ -57,8 +57,7 @@
             .then(response => {
                 if (response.success) {
                     alert(response.message)
-                    document.getElementById('noLogin').style.display = 'block';
-                    document.getElementById('yesLogin').style.display = 'none';
+                    location.reload()
                 } else {
                     alert('로그아웃 실패.')
                 }
