@@ -113,6 +113,10 @@ router.post('/apis/postBoard', (req,res) => {
     return apis.postBoard(req,res);
 })
 
+router.get('/apis/getBoard/', (req,res) => {
+    return apis.getBoard(req,res);
+})
+
 router.put('/apis/putBoard/:id', (req,res) => {
     return apis.putBoard(req,res);
 })
@@ -121,8 +125,20 @@ router.delete('/apis/deleteBoard/:id', (req,res) => {
     return apis.deleteBoard(req,res);
 })
 
-router.get('/apis/getBoard/:id', (req,res) => {
-    return apis.getBoard(req,res);
+router.post('/apis/postComment/:board_id', (req,res) => {
+    return apis.postComment(req,res);
+})
+
+router.get('/apis/getComment/:board_id', (req,res) => {
+    return apis.getComment(req,res);
+})
+
+router.put('/apis/putComment/:comment_id', (req,res) => {
+    return apis.putComment(req,res);
+})
+
+router.delete('/apis/deleteComment/:comment_id', (req,res) => {
+    return apis.deleteComment(req,res);
 })
 
 router.get('/apis/checkLogin', (req,res) => {
