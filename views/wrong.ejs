@@ -63,14 +63,10 @@
             -webkit-overflow-scrolling: touch;
           }
 
-          .page-top:after {
+          .page-title:after {
             content: "";
             display: block;
             clear: both;
-          }
-
-          .post {
-            text-align: start;
           }
 
           .title, .writer {
@@ -81,20 +77,16 @@
             color: black; text-decoration: underline;
           }
 
-          .post-box {
-            padding: 20px;
-            margin: 0px 10px 20px 10px;
-            border: 1px gray solid;
-            border-radius: 10px;
-          }
-
           .page {
             text-align: center;
+            align-items: center;
             background-color: #f9f9f9;
-            padding: 20px;
+            padding-top: 200px;
+            padding-bottom: 200px;
             margin: 20px;
             border-radius: 10px;
             border: #e5e5e5 .05rem solid;
+            margin-bottom: 20px;
           }
         </style>
 
@@ -108,53 +100,14 @@
         <div id="wrap">
             <%- include('./header') %>
             <div class="container">
+
                 <div class="page">
-                    <div class="page-top my-3 mx-3">
-                        <a href="/board"><button type="button" class="btn btn-dark" style="float: left;">목록</button></a>
-                        <% if (user) {
-                            if (user.id === post.user_id) { %>
-                        <button value="<%= post.id %>" id="delete-btn" type="button" class="btn btn-dark" style="float: right; margin-left: 10px;">삭제</button>
-                        <button value="<%= post.id %>" id="put-btn" type="button" class="btn btn-dark" style="float: right;">수정</button>
-                        <% }
-                        } %>
+                    <div>
+                        <h1>잘못된 접근입니다.</h1>
                     </div>
-
-                    <div class="mx-3">
-                        <div class="post">
-                            <h2 style="font-family: monospace; font-weight: 800;">[<%= post.type %>] <%= post.title %></h2>
-                            <h4 style="font-family: monospace;"><%= post.writer.nickname %></h4>
-                            <p style="font-family: monospace;"><%= post.created_at.substr(0, 10) + " " + post.created_at.substr(11, 5) %></p>
-                        </div>
-                        <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
-                        <div class="post" style="margin-bottom: 50px;">
-                            <div style="font-family: monospace; white-space: pre;"><%= post.content %></div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
         <%- include('./footer') %>
-
-        <script>
-            let deleteBtn = document.getElementById('delete-btn')
-            deleteBtn.addEventListener('click', () => {
-                if (confirm("정말 삭제하시겠습니까?")) {
-                    fetch(`http://127.0.0.1:4500/apis/deleteBoard/${deleteBtn.value}`, { method: "DELETE" })
-                    .then(response => response.json())
-                    .then(response => {
-                        alert(response.message);
-                        if (response.success) {
-                            location.href='/board';
-                        }
-                    })
-                }
-            })
-
-            let putBtn = document.getElementById('put-btn')
-            putBtn.addEventListener('click', () => {
-                location.href=`/post/${putBtn.value}`;
-            })
-        </script>
     </body>
 </html>
