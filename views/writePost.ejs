@@ -96,6 +96,10 @@
             border-radius: 10px;
             border: #e5e5e5 .05rem solid;
           }
+
+          select option[disabled] {
+            display: none;
+          }
         </style>
 
 
@@ -108,21 +112,26 @@
         <div id="wrap">
             <%- include('./header') %>
             <div class="container">
+
                 <div class="page">
                     <div class="page-top my-3 mx-3">
-                        <a href="/board"><button type="button" class="btn btn-dark" style="float: left;">목록</button></a>
-                        <button type="button" class="btn btn-dark" style="float: right;">삭제</button>
+                        <button type="button" id="post-btn" class="btn btn-dark" style="float: right; margin-left: 10px;">작성</button>
+                        <a href="/board"><button type="button" class="btn btn-dark" style="float: right;">취소</button></a>
                     </div>
 
                     <div class="mx-3">
                         <div class="post">
-                            <h2 style="font-family: monospace; font-weight: 800;">[<%= post.type %>] <%= post.title %></h2>
-                            <h4 style="font-family: monospace;"><%= post.writer.nickname %></h4>
-                            <p style="font-family: monospace;"><%= post.created_at.substr(0, 10) + " " + post.created_at.substr(11, 5) %></p>
+                            <select id="type-form" class="form-select" style="margin-bottom: 10px;">
+                                <option value="" disabled selected>글 종류를 선택해 주세요</option>
+                                <option value="자유">자유</option>
+                                <option value="학업">학업</option>
+                                <option value="진로">진로</option>
+                            </select>
+                            <input type="text" class="form-control" id="title-form" placeholder="제목을 입력해 주세요">
                         </div>
-                        <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
-                        <div class="post" style="margin-bottom: 50px;">
-                            <div style="font-family: monospace; white-space: pre;"><%= post.content %></div>
+                        <div style="border-bottom: 1px solid #c9c9c9; margin: 20px 0 20px 0;"></div>
+                        <div class="post" style="margin-bottom: 30px;">
+                            <textarea class="form-control" id="content-form" rows="15"></textarea>
                         </div>
                     </div>
 
@@ -130,5 +139,43 @@
             </div>
         </div>
         <%- include('./footer') %>
+
+        <script>
+            document.getElementById('post-btn').addEventListener("click", function() {
+                let title = document.getElementById('title-form').value.trim();
+                let content = document.getElementById('content-form').value.trim();
+                let typeForm = document.getElementById('type-form');
+                let type = typeForm.options[typeForm.selectedIndex].value.trim()
+
+                const data = JSON.stringify({
+                    title: title,
+                    content: content,
+                    type: type
+                })
+
+                const p = {
+                    method: "POST",
+                    headers: {
+                        "Content-type":"application/json"
+                    },
+                    body: data
+                }
+
+                if (title && content && type) {
+                    fetch('/apis/postBoard', p)
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response.success) {
+                            alert(response.message)
+                            location.href = `/board/${response.id}`;
+                        } else {
+                            alert('로그인 시에만 게시글 작성이 가능합니다');
+                        }
+                    })
+                } else {
+                    alert('모든 항목을 다 채워 주세요');
+                }
+            })
+        </script>
     </body>
 </html>

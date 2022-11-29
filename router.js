@@ -50,11 +50,13 @@ router.get('/board',(req,res) => {
     .then(response => response.json())
     .then(response => res.render('board', {posts: response}))
 })
-router.get('/board/:id', (req, res) => {
+router.get('/board/:id', (req,res) => {
     fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
     .then(response => response.json())
-    .then(response => {res.render('boardPost', {post: response.data})
-console.log(response)})
+    .then(response => res.render('boardPost', {post: response.data}))
+})
+router.get('/post', (req,res) => {
+    res.render('writePost')
 })
 router.get('/surveyresult/:result',(req,res)=>{
     switch (req.params.result){
