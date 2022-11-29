@@ -111,9 +111,9 @@
                         <thead>
                         <tr>
                             <th scope="col" style="width: 10%;"></th>
-                            <th scope="col" style="width: 10%;">분야</th>
+                            <th scope="col" style="width: 15%;">분야</th>
                             <th scope="col" style="width: 50%;">제목</th>
-                            <th scope="col" style="width: 15%;">작성자</th>
+                            <th scope="col" style="width: 10%;">작성자</th>
                             <th scope="col" style="width: 15%;">작성일</th>
                         </tr>
                         </thead>
@@ -160,7 +160,11 @@
                                 postTitleLink.href = `/board/${post.id}`
                                 let postTitle = document.createElement('td'); postTitle.append(postTitleLink);
 
-                                let postWriter = document.createElement('td'); postWriter.innerHTML = post.writer.nickname;
+                                let postWriter = document.createElement('td');
+                                if (post.writer.nickname.length <= 7) postWriter.innerHTML = post.writer.nickname;
+                                else {
+                                    postWriter.innerHTML = post.writer.nickname.slice(0,6) + " ...";
+                                }
                                 let postCreatedAt = document.createElement('td'); postCreatedAt.innerHTML = post.created_at.substr(0, 10);
 
 
