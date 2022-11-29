@@ -45,6 +45,7 @@
 </body>
 <script>
     let idcheck1=false;
+    
     function checkstudent(){
         const checkstudent=document.getElementById("isStudent");
         check=checkstudent.checked;
@@ -57,7 +58,7 @@
     }
 
     function idcheck(){
-        var id1=document.getElementById("id");
+        let id1=document.getElementById("id");
         const data1 = JSON.stringify({id:id1.value})
         const p={
             method:"POST",
@@ -81,19 +82,71 @@
                 }
             })
     }
+    let nickcheck1=false;
+    function nickcheck(){
+        let nick1=document.getElementById("nickname");
+        const data1 = JSON.stringify({nickname:nick1.value})
+        const p={
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:data1
+        }
+        fetch('/apis/checkNickname',p)
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                if(data.success==true){
+                    alert(data.message);
+                    nickcheck1=true;
+                }
+                else{
+                    alert(data.message);
+                    nickcheck1=false;
+                }
+            })
+    }
 
     const title = document.getElementById("id");
     title.addEventListener("focusout", idcheck);
+    const title1 = document.getElementById("nickname"); 
+    title1.addEventListener("focusout", nickcheck);
+    let name2=document.getElementById("name");
+    let birthday2=document.getElementById("birthday");
+    let password2=document.getElementById("password");
+    let checkname=true;
+    let checkbirth=true;
+    let checkpass=true;
 
     function submitlogin(){
-        var id1=document.getElementById("id");
-        var name1=document.getElementById("name");
-        var birthday1=document.getElementById("birthday");
-        var nickname1=document.getElementById("nickname");
-        var password1=document.getElementById("password");
-        var isStudent1=document.getElementById("isStudent");
-        var univ1=document.getElementById("univ");
-        var major1=document.getElementById("major");
+        let id1=document.getElementById("id");
+        let name1=document.getElementById("name");
+        let birthday1=document.getElementById("birthday");
+        let nickname1=document.getElementById("nickname");
+        let password1=document.getElementById("password");
+        let isStudent1=document.getElementById("isStudent");
+        let univ1=document.getElementById("univ");
+        let major1=document.getElementById("major");
+        if(name1.value===""){
+            checkname=false;
+            alert("이름을 입력해주세요.")
+        }
+        else if(birthday1.value===""){
+            checkbirth=false;
+            alert("생일을 입력해주세요.")
+        }
+        else if(password1.value===""){
+            checkpass=false;
+            alert("비밀번호를 입력해주세요.")
+        }
+        else if(idcheck1===false){
+            alert("아이디가 중복되었습니다.")
+        }
+        else if(nickcheck1===false){
+            alert("닉네임이 중복되었습니다.")
+        }
         const data1 = JSON.stringify({
             id:id1.value,
             name:name1.value,
@@ -111,7 +164,7 @@
             },
             body:data1
         }
-        if(idcheck1===true){
+        if((idcheck1===true)&&(nickcheck1===true)&&(checkname===true)&&(checkbirth===true)&&(checkpass===true)){
             fetch('/apis/register',p)
                 .then((response)=>{
                     return response.json()
@@ -120,9 +173,6 @@
                     alert(data.message);
                     location.href="/login"
                 })
-        }
-        else{
-            alert("ID가 중복됐습니다.")
         }
 }
 </script>

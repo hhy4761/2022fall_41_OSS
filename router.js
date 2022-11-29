@@ -58,6 +58,28 @@ router.get('/board/:id', (req,res) => {
 router.get('/post', (req,res) => {
     res.render('writePost')
 })
+router.get('/surveyresult/:result',(req,res)=>{
+    switch (req.params.result){
+        case 'human':
+            res.render('surveyresult/human')
+            break
+        case 'engineer':
+            res.render('surveyresult/engineer')
+            break
+        case 'design':
+            res.render('surveyresult/design')
+            break
+        case 'manage':
+            res.render('surveyresult/manage')
+            break
+        case 'exercise':
+            res.render('surveyresult/exercise')
+            break
+        default:
+            res.render('survey');
+            break
+    }
+})
 
 /*
 API 호출 Router
@@ -91,8 +113,32 @@ router.post('/apis/postBoard', (req,res) => {
     return apis.postBoard(req,res);
 })
 
-router.get('/apis/getBoard/:id', (req,res) => {
+router.get('/apis/getBoard/', (req,res) => {
     return apis.getBoard(req,res);
+})
+
+router.put('/apis/putBoard/:id', (req,res) => {
+    return apis.putBoard(req,res);
+})
+
+router.delete('/apis/deleteBoard/:id', (req,res) => {
+    return apis.deleteBoard(req,res);
+})
+
+router.post('/apis/postComment/:board_id', (req,res) => {
+    return apis.postComment(req,res);
+})
+
+router.get('/apis/getComment/:board_id', (req,res) => {
+    return apis.getComment(req,res);
+})
+
+router.put('/apis/putComment/:comment_id', (req,res) => {
+    return apis.putComment(req,res);
+})
+
+router.delete('/apis/deleteComment/:comment_id', (req,res) => {
+    return apis.deleteComment(req,res);
 })
 
 router.get('/apis/checkLogin', (req,res) => {
