@@ -113,7 +113,7 @@ router.post('/apis/postBoard', (req,res) => {
     return apis.postBoard(req,res);
 })
 
-router.get('/apis/getBoard/', (req,res) => {
+router.get('/apis/getBoard/:id', (req,res) => {
     return apis.getBoard(req,res);
 })
 
