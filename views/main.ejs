@@ -62,6 +62,27 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
+      .page-title:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .my-link:hover {
+            text-decoration: underline !important;
+        }
+
+        .page {
+            text-align: center;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 10px 0 10px 0;
+            border-radius: 10px;
+            border: #e5e5e5 .05rem solid;
+            margin-bottom: 20px;
+        }
     </style>
 
 
@@ -79,8 +100,8 @@
   <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
     <div class="col-md-6 px-0">
       <h1 class="display-4 fst-italic">적성 검사로 나한테 맞는<br>전공 찾기 :)</h1>
-      <p class="lead my-3"><사이트명>은 전공을 아직 선택하지 못한 학생들을 위해 재미있고 간단한 적성 검사를 제공합니다. 아래 링크에서 참여해 보세요!</p>
-      <p class="lead mb-0"><a href="/survey" class="text-white fw-bold">적성 검사 하러 가기...</a></p>
+      <p class="lead my-3"><b><니드커넥트></b>는 전공을 아직 선택하지 못한 학생들을 위해 재미있고 간단한 적성 검사를 제공합니다. 아래 링크에서 참여해 보세요!</p>
+      <p class="lead mb-0"><a href="/survey" class="text-white fw-bold">재미로 해 보는 적성 검사</a></p>
     </div>
   </div>
 
@@ -125,8 +146,39 @@
 
   <div class="row g-5">
     <div class="col-md-8">
-      <p>게시판 들어갈 자리</p>
+        <div class="p-4 mb-3 bg-light rounded">
+            <div class="page-title my-3 mx-3">
+                <h2 style="float: left; font-family: monospace; font-weight: 800;">게시판</h2>
+                <a href="/board"><p class="my-link" style="float: right; padding-top: 10px; color: black;">더 많은 게시글 보러 가기 >>></p></a>
+            </div>
 
+            <div class="px-3">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 60%;">제목</th>
+                        <th scope="col" style="width: 20%;">작성자</th>
+                        <th scope="col" style="width: 20%;">작성일</th>
+                    </tr>
+                    <% posts.sort(function(a, b) { return b.id - a.id });
+                    posts.slice(0, 20).forEach(post => { %>
+                    <tr>
+                        <td><a class="my-link" href="/board/<%= post.id %>" style="color: black; text-decoration: none;"><%= post.title %></a></td>
+                        <% if (post.writer.nickname.length <= 7) { %>
+                            <td><%= post.writer.nickname %></td>
+                        <% } else { %>
+                            <td><%= post.writer.nickname.slice(0,6) + "···" %></td>
+                        <% } %>
+                        <td><%= post.created_at.slice(0, 10) %></td>
+                    </tr>
+                    <% }) %>
+                    </thead>
+                    <tbody id="table-body" class="table-group-divider">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 

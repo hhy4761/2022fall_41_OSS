@@ -21,10 +21,10 @@
 			<input type="text" class="form-control" id="name" placeholder="이름을 입력하세요.">
 		</div>
         <div class="d-flex align-items-center mb-2 mt-2">
-			<input type="text" class="form-control" id="id" placeholder="아이디를 입력하세요.">
+			<input type="text" class="form-control" id="id" placeholder="아이디를 입력하세요." oninput="handleOnInput(this)">
 		</div>
         <div class="d-flex align-items-center mb-2 mt-2">
-			<input type="text" class="form-control" id="password" placeholder="비밀번호를 입력하세요.">
+			<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요.">
 		</div>
         <div class="d-flex align-items-center mt-2" style="margin-bottom:20px;">
 			<input type="text" class="form-control" id="nickname" placeholder="닉네임을 입력하세요.">
@@ -37,10 +37,10 @@
         </div>
         <div class="d-flex align-items-center mb-2 mt-2">
             <input type="checkbox" name="isStudent" id="isStudent" value=2 style="margin-left:10px;"onclick="checkstudent()">
-                    <label for="isStudent" style="margin-left:10px;">학생이라면 체크하세요.</label><br><br>
+                    <label for="isStudent" style="margin-left:10px;">대학생이라면 체크하세요.</label><br><br>
         </div>
         <div class="d-flex align-items-center mb-2" style="margin-top:15px; margin-left:10px;">
-            <h4 style="font-size:15px;">학생이라면 아래는 빈칸으로 제출하세요.</h4>
+            <h4 style="font-size:15px;">대학생이 아니라면 아래는 빈칸으로 제출하세요.</h4>
         </div>
         <div class="d-flex align-items-center mb-2 mt-2">
             <input type="text" class="form-control" name="univ" id="univ" placeholder="대학교를 입력해주세요.">
@@ -56,7 +56,7 @@
 		crossorigin="anonymous"></script>
     <script>
  let idcheck1=false;
-    
+
     function checkstudent(){
         const checkstudent=document.getElementById("isStudent");
         check=checkstudent.checked;
@@ -120,10 +120,16 @@
             })
     }
 
-    const title = document.getElementById("id"); 
-    title.addEventListener("focusout", idcheck);
-    const title1 = document.getElementById("nickname"); 
-    title1.addEventListener("focusout", nickcheck);
+    const title = document.getElementById("id");
+    title.addEventListener("focusout", () => {
+        if (title.value) idcheck()
+        else alert("아이디를 입력해 주세요.")
+    });
+    const title1 = document.getElementById("nickname");
+    title1.addEventListener("focusout", () => {
+        if (title1.value) nickcheck()
+        else alert("닉네임을 입력해 주세요.")
+    });
     let name2=document.getElementById("name");
     let birthday2=document.getElementById("birthday");
     let password2=document.getElementById("password");
@@ -182,9 +188,13 @@
                 })
                 .then((data)=>{
                     alert(data.message);
-                    location.href="/main"
+                    location.href="/login"
                 })
         }
+    }
+
+    function handleOnInput(e)  {
+        e.value = e.value.replace(/[^A-Za-z0-9]/ig, '')
     }
   </script>
 

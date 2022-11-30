@@ -43,20 +43,50 @@ router.get('/surveyresult/:result',(req,res) => {
     }
 })
 router.get('/main',(req,res) => {
-    res.render('main');
-})
-router.get('/board',(req,res) => {
     fetch('http://127.0.0.1:4500/apis/listBoard')
     .then(response => response.json())
-    .then(response => res.render('board', {posts: response}))
+    .then(response => res.render('main', {posts: response}))
+})
+router.get('/board',(req,res) => {
+    res.render('board');
 })
 router.get('/board/:id', (req,res) => {
     fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
     .then(response => response.json())
-    .then(response => res.render('boardPost', {post: response.data}))
+    .then(response => {
+        fetch(`http://127.0.0.1:4500/apis/getComment/${req.params.id}`)
+        .then(response2 => response2.json())
+        .then(response2 => res.render('boardPost', {
+            post: response.data,
+            comments: response2.data,
+            user: req.session.user
+        }))
+        .catch(error => console.log("error:", error))
+    })
+    .catch(error => console.log("error:", error))
 })
 router.get('/post', (req,res) => {
-    res.render('writePost')
+    res.render('writePost', {isWrite: true})
+})
+router.get('/post/:id', (req,res) => {
+    fetch(`http://127.0.0.1:4500/apis/getBoard/${req.params.id}`)
+    .then(response => response.json())
+    .then(response => {
+        if (req.session.user) {
+            if (response.data.user_id === req.session.user.id) {
+                res.render('writePost', {
+                    isWrite: false,
+                    id: req.params.id,
+                    post: response.data
+                })
+            } else {
+                res.render('wrong')
+            }
+        } else {
+            res.render('wrong')
+        }
+    })
+    .catch((error) => console.log("error:", error))
 })
 router.get('/surveyresult/:result',(req,res)=>{
     switch (req.params.result){
@@ -113,7 +143,7 @@ router.post('/apis/postBoard', (req,res) => {
     return apis.postBoard(req,res);
 })
 
-router.get('/apis/getBoard/', (req,res) => {
+router.get('/apis/getBoard/:id', (req,res) => {
     return apis.getBoard(req,res);
 })
 
