@@ -223,7 +223,11 @@
                                 let postId = document.createElement('td'); postId.innerHTML = post.id;
                                 let postType = document.createElement('td'); postType.innerHTML = post.type;
 
-                                let postTitleLink = document.createElement('a'); postTitleLink.innerHTML = post.title;
+                                let postTitleLink = document.createElement('a');
+                                if (post.title.length <= 30) postTitleLink.innerHTML = post.title;
+                                else {
+                                    postTitleLink.innerHTML = post.title.slice(0,30) + "···";
+                                }
                                 postTitleLink.classList.add('title');
                                 postTitleLink.href = `/board/${post.id}`
                                 let postTitle = document.createElement('td'); postTitle.append(postTitleLink);
