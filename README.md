@@ -10,7 +10,7 @@ $ npm install
 $ npm run start
 ```
 위 명령어 실행 후 아래 링크에 접속<br>
-`[http://127.0.0.1:4500/main](http://127.0.0.1:4500/main)`
+[http://127.0.0.1:4500/main](http://127.0.0.1:4500/main)
 
 ## Name of the site
 **_NEED CONNECT<br>_**
