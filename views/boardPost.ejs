@@ -92,9 +92,14 @@
             text-align: center;
             background-color: #f9f9f9;
             padding: 20px;
-            margin: 20px;
+            margin: 10px 0 10px 0;
             border-radius: 10px;
             border: #e5e5e5 .05rem solid;
+          }
+
+          .link:hover {
+            text-decoration: underline;
+            cursor: pointer;
           }
         </style>
 
@@ -111,18 +116,58 @@
                 <div class="page">
                     <div class="page-top my-3 mx-3">
                         <a href="/board"><button type="button" class="btn btn-dark" style="float: left;">목록</button></a>
-                        <button type="button" class="btn btn-dark" style="float: right;">삭제</button>
+                        <% if (user) {
+                        if (user.id === post.user_id) { %>
+                        <button value="<%= post.id %>" id="delete-btn" type="button" class="btn btn-dark" style="float: right; margin-left: 10px;">삭제</button>
+                        <button value="<%= post.id %>" id="put-btn" type="button" class="btn btn-dark" style="float: right;">수정</button>
+                        <% }
+                        } %>
                     </div>
 
                     <div class="mx-3">
                         <div class="post">
                             <h2 style="font-family: monospace; font-weight: 800;">[<%= post.type %>] <%= post.title %></h2>
-                            <h4 style="font-family: monospace;"><%= post.writer.nickname %></h4>
+                            <div>
+                                <h4 style="font-family: monospace; display: inline-block;"><%= post.writer.nickname %></h4>
+                                <% if (post.writer.isStudent === '1') { %>
+                                    <p style="display: inline-block;">(<%= post.writer.major %>)</p>
+                                <% } %>
+                            </div>
                             <p style="font-family: monospace;"><%= post.created_at.substr(0, 10) + " " + post.created_at.substr(11, 5) %></p>
                         </div>
                         <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
-                        <div class="post" style="margin-bottom: 50px;">
-                            <div style="font-family: monospace; white-space: pre;"><%= post.content %></div>
+                        <div class="post" style="min-height: 300px; padding-bottom: 100px;">
+                            <div style="font-family: monospace; white-space: pre-wrap;"><%= post.content.trim() %></div>
+                        </div>
+                        <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
+                        <h4 style="font-family: monospace; text-align: start; margin-bottom: 30px;"><b>댓글</b></h4>
+
+                        <% comments.forEach(comment => { %>
+                            <div style="text-align: start;">
+                                <% console.log(comment.id)
+                                if (user) {
+                                if (user.id === comment.user_id) { %>
+                                    <p value="<%= comment.id %>" class="link" style="float: right; margin-left: 10px;" onclick="dltCmt(this)">삭제</p>
+                                    <!--
+                                    <p value="<%= comment.id %>" class="link" id="put-comment" style="float: right;">수정</p>
+                                    -->
+                                <% }
+                                } %>
+                                <b style="font-family: monospace; display: inline-block;"><%= comment.comment_writer.nickname %></b>
+                                <% if (comment.comment_writer.isStudent === '1') { %>
+                                    <p style="display: inline-block;">(<%= comment.comment_writer.major %>)</p>
+                                <% } else { %>
+                                    <p style="display: inline-block;">&nbsp</p>
+                                <% } %>
+                                <p style="white-space: pre-wrap;"><%= comment.comment_content.trim() %></p>
+                                <p style="font-size: 12px;"><%= comment.created_at.slice(0, 10) + ' ' + comment.created_at.slice(11, 16) %></p>
+                            </div>
+                            <div style="border-bottom: 1px solid #c9c9c9; margin-bottom: 20px;"></div>
+                        <% }) %>
+
+                        <div class="post row" style="padding: 10px;">
+                            <textarea id="comment-form" class="form-control col" id="content-form" rows="3" style="margin-right: 20px;"></textarea>
+                            <button value="<%= post.id %>" id="post-comment" type="button" class="btn btn-secondary col-md-2">작성</button>
                         </div>
                     </div>
 
@@ -130,5 +175,73 @@
             </div>
         </div>
         <%- include('./footer') %>
+
+        <script>
+            let deleteBtn = document.getElementById('delete-btn')
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', () => {
+                    if (confirm("정말 삭제하시겠습니까?")) {
+                        fetch(`http://127.0.0.1:4500/apis/deleteBoard/${deleteBtn.value}`, { method: "DELETE" })
+                        .then(response => response.json())
+                        .then(response => {
+                            alert(response.message);
+                            if (response.success) {
+                                location.href='/board';
+                            }
+                        })
+                    }
+                })
+            }
+
+            let putBtn = document.getElementById('put-btn')
+            if (putBtn) {
+                putBtn.addEventListener('click', () => {
+                    location.href=`/post/${putBtn.value}`;
+                })
+            }
+
+            let postComment = document.getElementById('post-comment')
+            postComment.addEventListener('click', () => {
+                let content = document.getElementById('comment-form').value
+                const data = JSON.stringify({
+                    comment_content: content
+                })
+
+                const p = {
+                    method: "POST",
+                    headers: {
+                        "Content-type":"application/json"
+                    },
+                    body: data
+                }
+
+                if (content) {
+                    fetch(`/apis/postComment/${postComment.value}`, p)
+                    .then(response => response.json())
+                    .then(response => {
+                        alert(response.message)
+                        if (response.success) {
+                            location.reload()
+                        }
+                    })
+                } else {
+                    alert('모든 항목을 다 채워 주세요');
+                }
+            })
+
+            let dltCmt = (e) => {
+                if (confirm("정말 댓글을 삭제하시겠습니까?")) {
+                    let id = e.getAttribute('value')
+                    fetch(`http://127.0.0.1:4500/apis/deleteComment/${id}`, { method: "DELETE" })
+                    .then(response => response.json())
+                    .then(response => {
+                        alert(response.message);
+                        if (response.success) {
+                            location.reload();
+                        }
+                    })
+                }
+            }
+        </script>
     </body>
 </html>

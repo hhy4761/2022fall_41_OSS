@@ -35,7 +35,7 @@ const apis = {
         }
         return res.json({
             success: true,
-            meessage: "사용해도 좋은 닉네임입니다."
+            message: "사용해도 좋은 닉네임입니다."
         })
     },
 
@@ -112,7 +112,7 @@ const apis = {
                 {
                     model: DBManager.User,
                     as: 'writer',
-                    attributes: ['nickname','isStudent'],
+                    attributes: ['nickname','isStudent','major'],
                 }
             ]
         });
@@ -161,7 +161,7 @@ const apis = {
                 {
                     model: DBManager.User,
                     as: 'writer',
-                    attributes: ['nickname','isStudent']
+                    attributes: ['nickname','isStudent','major']
                 }
             ]
         })
@@ -279,7 +279,7 @@ const apis = {
                 {
                     model: DBManager.User,
                     as: 'comment_writer',
-                    attributes: ['nickname','isStudent']
+                    attributes: ['nickname','isStudent','major']
                 }
             ]
         })

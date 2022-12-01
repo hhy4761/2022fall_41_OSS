@@ -92,7 +92,7 @@
             text-align: center;
             background-color: #f9f9f9;
             padding: 20px;
-            margin: 20px;
+            margin: 10px 0 10px 0;
             border-radius: 10px;
             border: #e5e5e5 .05rem solid;
           }
@@ -115,11 +115,16 @@
 
                 <div class="page">
                     <div class="page-top my-3 mx-3">
+                        <% if (isWrite) { %>
                         <button type="button" id="post-btn" class="btn btn-dark" style="float: right; margin-left: 10px;">작성</button>
+                        <% } else { %>
+                        <button value="<%= id %>" type="button" id="put-btn" class="btn btn-dark" style="float: right; margin-left: 10px;">수정</button>
+                        <% } %>
                         <a href="/board"><button type="button" class="btn btn-dark" style="float: right;">취소</button></a>
                     </div>
 
                     <div class="mx-3">
+                        <% if (isWrite) { %>
                         <div class="post">
                             <select id="type-form" class="form-select" style="margin-bottom: 10px;">
                                 <option value="" disabled selected>글 종류를 선택해 주세요</option>
@@ -133,6 +138,30 @@
                         <div class="post" style="margin-bottom: 30px;">
                             <textarea class="form-control" id="content-form" rows="15"></textarea>
                         </div>
+                        <% } else { %>
+                        <div class="post">
+                            <select id="type-form" class="form-select" style="margin-bottom: 10px;">
+                                <% if (post.type === '자유') { %>
+                                    <option value="자유" selected>자유</option>
+                                    <option value="학업">학업</option>
+                                    <option value="진로">진로</option>
+                                <% } else if (post.type === '학업') { %>
+                                    <option value="자유">자유</option>
+                                    <option value="학업" selected>학업</option>
+                                    <option value="진로">진로</option>
+                                <% } else if (post.type === '진로') { %>
+                                    <option value="자유">자유</option>
+                                    <option value="학업">학업</option>
+                                    <option value="진로" selected>진로</option>
+                                <% } %>
+                            </select>
+                            <input type="text" class="form-control" id="title-form" placeholder="제목을 입력해 주세요" value="<%= post.title %>">
+                        </div>
+                        <div style="border-bottom: 1px solid #c9c9c9; margin: 20px 0 20px 0;"></div>
+                        <div class="post" style="margin-bottom: 30px;">
+                            <textarea class="form-control" id="content-form" rows="15"><%= post.content %></textarea>
+                        </div>
+                        <% } %>
                     </div>
 
                 </div>
@@ -141,41 +170,79 @@
         <%- include('./footer') %>
 
         <script>
-            document.getElementById('post-btn').addEventListener("click", function() {
-                let title = document.getElementById('title-form').value.trim();
-                let content = document.getElementById('content-form').value.trim();
-                let typeForm = document.getElementById('type-form');
-                let type = typeForm.options[typeForm.selectedIndex].value.trim()
+            let postButton = document.getElementById('post-btn');
+            if (postButton) {
+                postButton.addEventListener("click", function() {
+                    let title = document.getElementById('title-form').value.trim();
+                    let content = document.getElementById('content-form').value.trim();
+                    let typeForm = document.getElementById('type-form');
+                    let type = typeForm.options[typeForm.selectedIndex].value.trim()
 
-                const data = JSON.stringify({
-                    title: title,
-                    content: content,
-                    type: type
-                })
-
-                const p = {
-                    method: "POST",
-                    headers: {
-                        "Content-type":"application/json"
-                    },
-                    body: data
-                }
-
-                if (title && content && type) {
-                    fetch('/apis/postBoard', p)
-                    .then(response => response.json())
-                    .then(response => {
-                        if (response.success) {
-                            alert(response.message)
-                            location.href = `/board/${response.id}`;
-                        } else {
-                            alert('로그인 시에만 게시글 작성이 가능합니다');
-                        }
+                    const data = JSON.stringify({
+                        title: title,
+                        content: content,
+                        type: type
                     })
-                } else {
-                    alert('모든 항목을 다 채워 주세요');
-                }
-            })
+
+                    const p = {
+                        method: "POST",
+                        headers: {
+                            "Content-type":"application/json"
+                        },
+                        body: data
+                    }
+
+                    if (title && content && type) {
+                        fetch('/apis/postBoard', p)
+                        .then(response => response.json())
+                        .then(response => {
+                            alert(response.message)
+                            if (response.success) {
+                                location.href = `/board/${response.id}`;
+                            }
+                        })
+                    } else {
+                        alert('모든 항목을 다 채워 주세요');
+                    }
+                })
+            }
+
+            let putButton = document.getElementById('put-btn');
+            if (putButton) {
+                putButton.addEventListener("click", function() {
+                    let title = document.getElementById('title-form').value.trim();
+                    let content = document.getElementById('content-form').value.trim();
+                    let typeForm = document.getElementById('type-form');
+                    let type = typeForm.options[typeForm.selectedIndex].value.trim()
+
+                    const data = JSON.stringify({
+                        title: title,
+                        content: content,
+                        type: type
+                    })
+
+                    const p = {
+                        method: "PUT",
+                        headers: {
+                            "Content-type":"application/json"
+                        },
+                        body: data
+                    }
+
+                    if (title && content && type) {
+                        fetch(`/apis/putBoard/${putButton.value}`, p)
+                        .then(response => response.json())
+                        .then(response => {
+                            alert(response.message)
+                            if (response.success) {
+                                location.href = `/board/${putButton.value}`;
+                            }
+                        })
+                    } else {
+                        alert('모든 항목을 다 채워 주세요');
+                    }
+                })
+            }
         </script>
     </body>
 </html>
