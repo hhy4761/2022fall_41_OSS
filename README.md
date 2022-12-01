@@ -1,12 +1,19 @@
 # 2022fall_41_OSS
 
 ## Prerequisite
+You should install the following things on your machine.
+* Node.js - (We recommend Node.js version ^18.0.0)
+* Express - (You can install by typing 'npm install')
+
+## Cloning The GitHub Repository
+You can download our code from Github using git clone.
 ``` bash
-$ npm install
+$ git clone https://github.com/hhy4761/2022fall_41_OSS.git
 ```
 
-## How to execute
+## Quick Start
 ``` bash
+$ npm install
 $ npm run start
 ```
 위 명령어 실행 후 아래 링크에 접속<br>
