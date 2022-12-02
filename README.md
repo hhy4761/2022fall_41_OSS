@@ -23,20 +23,21 @@ $ npm run start
 **_NEED CONNECT<br>_**
 **_니드 커넥트_**
 
-## NeedConnect API Documetation
-You can check NeedConnect API Doc from here<br>
-#### https://hhy4761.github.io/NeedConnectAPI/
-
 ## Theme
 10대 학생들이 미래에 대한 정보없이 꿈을 찾아야한다. 그래서 목적성 없는 공부를 하는 경우가 많다. 예를 들어, 수학이 어떻게 활용되는지 모르고 오직 문제를 풀기 위해 배운다. 그래서 10대 학생들에게 공부의 목적성이나, 좋은 마음가짐을 가르쳐 줄 수 있는 커뮤니티 사이트를 구축하는 것이 목표이다.
 
+## Screenshot
 * <img src="/screenshot/homepage.png" width="700">
 * <img src="/screenshot/board.png" width="700">
 * <img src="/screenshot/survey.png" width="700">
 * <img src="/screenshot/surveyresult.png" width="350">
 
-
+## Youtube 
 * https://youtu.be/Xx7BBCHqJ14
+
+## NeedConnect API Documetation
+You can check NeedConnect API Doc from here<br>
+#### https://hhy4761.github.io/NeedConnectAPI/
 
 ## License
 MIT LICENSE
