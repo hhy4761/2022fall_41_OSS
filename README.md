@@ -35,7 +35,7 @@ $ npm run start
 ## Youtube 
 * https://youtu.be/Xx7BBCHqJ14
 
-## NeedConnect API Documetation
+## NeedConnect API Document
 You can check NeedConnect API Doc from here<br>
 #### https://hhy4761.github.io/NeedConnectAPI/
 
